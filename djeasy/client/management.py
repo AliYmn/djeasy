@@ -22,14 +22,12 @@ class EasyInstall():
         config = configparser.ConfigParser()
         config.sections()
         config.read('settings.ini')
+        cprint("Django client - Uploading packages.", 'red', attrs=['bold'])
+        for package in self.data['package']:
+            subprocess.call(package['name'], shell=True)
 
-        if(config['Sites']['created']):
-            subprocess.call("sudo systemctl daemon reload", shell=True)
-            subprocess.call("sudo systemctl restart nginx", shell=True)
-        else:
-            cprint("Django client - Uploading packages.", 'red', attrs=['bold'])
-            for package in self.data['package']:
-                subprocess.call(package['name'], shell=True)
+        subprocess.call("sudo systemctl daemon reload", shell=True)
+        subprocess.call("sudo systemctl restart nginx", shell=True)
 
     def __add__(self):
         #gunicorn file save and move
@@ -83,15 +81,6 @@ class EasyInstall():
             cprint("/home/server.info file created.", 'red', attrs=['bold'])
             cprint("all successful!", 'green', attrs=['bold'])
 
-    def settings(self):
-        with open('{}/client/settings.ini'.format(BASE_DIR)) as settings_file:
-            settings_file = settings_file.read().format(self.server_name_or_ip,self.project_name,self.static_url,"True")
-            file = open('{}/package/settings.ini', 'w')
-            file.write(settings_file)
-            file.flush()
-            file.close()
-
-
 def collectstatic():
     with open("{}/client/server.info".format(BASE_DIR)) as collect_file:
         subprocess.call("python3 /home/{}/manage.py collectstatic".format(collect_file['project_name']), shell=True)
@@ -134,7 +123,6 @@ def RunEasy():
     Easy.__add__()
     Easy.__copy__()
     Easy.extra()
-    Easy.save()
     Easy.save()
 
 

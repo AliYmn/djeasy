@@ -50,4 +50,20 @@ We are starting now! :)
     djeasy
  
  Output :
+
+<img src="http://image.prntscr.com/image/c89f074de20b43f3a9532033ff844c27.png"/>
+
+    Options:
+      --create                 A new site
+      --collectstatic          static file
+      --makemigrations         database makemigrations
+      --migrate                database migrate
+
+
+# DjEasy Create Site
+
+    djeasy --create
+   
+Output :
+    
  
