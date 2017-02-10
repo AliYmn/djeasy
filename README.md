@@ -63,15 +63,14 @@ We are starting now! :)
 # DjEasy Create Site
 
     djeasy --create
-   
+
+* Note :  Warning : Make sure you are entering the correct information.
+  
 Output :
     
- <img src="http://image.prntscr.com/image/3f7c4755b4c145d8ab4e1b5cada271e4.png"/>
- It's so easy :)
+ <img src="http://image.prntscr.com/image/3f7c4755b4c145d8ab4e1b5cada271e4.png"/> 
+  
  
- 
-* Warning : Make sure you are entering the correct information.
-
 # Congratulations Successful!
 
 <img src="http://image.prntscr.com/image/fe6e3dd4bb2c4454a3f202d5f2b8fda9.png"/>

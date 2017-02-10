@@ -4,7 +4,6 @@ from termcolor import cprint
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 import sys
-import configparser
 
 class EasyInstall():
     """ Package Install and Settings """
@@ -18,10 +17,6 @@ class EasyInstall():
             self.data = json.load(data_file)
 
     def __call__(self, *args, **kwargs):
-        #all package.json loading...
-        config = configparser.ConfigParser()
-        config.sections()
-        config.read('settings.ini')
         cprint("Django client - Uploading packages.", 'red', attrs=['bold'])
         for package in self.data['package']:
             subprocess.call(package['name'], shell=True)
