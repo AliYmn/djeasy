@@ -1,0 +1,91 @@
+{
+    "package": [
+        {
+            "name": "sudo apt-get update",
+            "message": "Update package, please wait ..."
+        },
+
+        {
+            "name": "sudo apt-get install python-pip python-dev libpq-dev postgresql postgresql-contrib nginx",
+            "message": "Please wait while Django packages for Python 2.x are install ..."
+        },
+
+
+        {
+            "name": "sudo apt-get update",
+            "message": "Update package, please wait ..."
+        },
+
+
+        {
+            "name": "sudo apt-get install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx",
+            "message": "Please wait while Django packages for Python 3.x are install ..."
+        },
+
+        {
+            "name": "sudo pip install virtualenv django gunicorn psycopg2",
+            "message": "Please wait while virtualenv package for Python 2.x are install ..."
+        },
+
+        {
+            "name": "sudo pip3 install virtualenv django gunicorn psycopg2 termcolor",
+            "message": "Please wait while virtualenv package for Python 3.x are install ..."
+        },
+
+        {
+            "name": "sudo ufw allow 8000",
+            "message": "8000 ports were allowed."
+        }
+
+
+    ],
+
+    "gunicorn": [
+
+        {
+            "name": "sudo systemctl start gunicorn & sudo systemctl enable gunicorn",
+            "message": "Gunicorn settings were made."
+        }
+
+    ],
+
+        "nginx": [
+
+        {
+            "name": "sudo nginx -t",
+            "message": "Nginx testing ..."
+        },
+
+        {
+            "name": "sudo systemctl restart nginx & sudo systemctl gunicorn restart",
+            "message": "Restart nginx and gunicorn"
+        },
+
+        {
+            "name": "sudo ufw delete allow 8000",
+            "message": "The Nginx 8000 port has been deleted."
+        },
+
+        {
+            "name": "sudo ufw delete allow 8000",
+            "message": "Nginx permissions."
+        },
+
+        {
+            "name": "sudo ln -s /etc/nginx/sites-available/DjangoProject /etc/nginx/sites-enabled",
+            "message": "Nginx enabled."
+        },
+
+        {
+            "name": "systemctl restart nginx",
+            "message": "Restart Nginx!"
+        },
+
+        {
+            "name": "systemctl restart gunicorn",
+            "message": "Restart Gunicorn!"
+        }
+
+    ]
+}
+

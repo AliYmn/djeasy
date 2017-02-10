@@ -1,0 +1,11 @@
+[Unit]
+Description=DjangoBlog
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/home/DjangoBlog
+ExecStart=/home/DjangoEnv/bin/gunicorn --workers 3 --bind unix:/home/DjangoBlog/DjangoBlog.sock DjangoBlog.wsgi:application
+[Install]
+WantedBy=multi-user.target

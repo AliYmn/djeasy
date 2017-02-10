@@ -1,0 +1,11 @@
+[Unit]
+Description={0}
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/home/{0}
+ExecStart=/usr/local/bin/gunicorn --workers 3 --bind unix:/home/{0}/{0}.sock {0}.wsgi:application
+[Install]
+WantedBy=multi-user.target
