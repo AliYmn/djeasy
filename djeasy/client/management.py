@@ -124,7 +124,8 @@ def RunEasy():
     Easy.__copy__()
     Easy.extra()
     Easy.save()
-
+    subprocess.call("service nginx restart", shell=True)
+    subprocess.call("systemctl restart gunicorn", shell=True)
 
 def main():
     message = """

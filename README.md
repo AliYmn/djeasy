@@ -66,4 +66,17 @@ We are starting now! :)
    
 Output :
     
+ <img src="http://image.prntscr.com/image/3f7c4755b4c145d8ab4e1b5cada271e4.png"/>
+ It's so easy :)
  
+ 
+* Warning : Make sure you are entering the correct information.
+
+# Congratulations Successful!
+
+<img src="http://image.prntscr.com/image/fe6e3dd4bb2c4454a3f202d5f2b8fda9.png"/>
+
+# Create the PostgreSQL Database and User
+
+ https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-16-04#create-the-postgresql-database-and-user
+    
