@@ -12,7 +12,7 @@
 
 # Package
 
-    pip3 install git+https://github.com/AliYmn/djeasy
+    pip3 install djeasy
 
 
 
