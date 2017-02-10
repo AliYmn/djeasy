@@ -9,7 +9,9 @@ setup(
     license="MIT",
     keywords="django install server",
     packages=['djeasy','djeasy/client','djeasy/package'],
-    requires=["termcolor"],
+    install_requires=[
+        'termcolor',
+    ],
     include_package_data=True,
     zip_safe=False,
     classifiers=[
