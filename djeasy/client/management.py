@@ -15,9 +15,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if not sys.version_info >= (3, 0):
     sys.exit("This program runs only on Python 3.x\nExiting...")
 
-# This program will work only on Linux systems.
-if "Linux" not in platform.system() or not platform.system() == "Linux":
-    sys.exit("This program runs only on Linux machines\nExiting...")
+# This program will work only on Debian and Ubuntu.
+if sys.version_info < (3, 7):
+    if not "debian" or not "ubuntu" in str(platform.linux_distribution()).lower():
+        sys.exit("This program runs only on Debian and Ubuntu\nExiting...")
+else:
+    if not "debian" or not "ubuntu" in str(platform.platform()).lower():
+        sys.exit("This program runs only on Debian and Ubuntu\nExiting...")
 
 
 class EasyInstall:
