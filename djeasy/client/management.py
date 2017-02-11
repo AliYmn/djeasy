@@ -87,15 +87,15 @@ class EasyInstall():
             cprint("all successful!", 'green', attrs=['bold'])
 
 def collectstatic():
-    with open("{}/package/server.json".format(BASE_DIR)) as collect_file:
+    with open("/home/server.json") as collect_file:
         subprocess.call("python3 /home/{}/manage.py collectstatic".format(collect_file['project_name']), shell=True)
 
 def makemigrations():
-    with open("{}/package/server.json".format(BASE_DIR)) as makemigrations_file:
+    with open("/home/server.json") as makemigrations_file:
         subprocess.call("python3 /home/{}/manage.py makemigrations".format(makemigrations_file['project_name']), shell=True)
 
 def migrate():
-    with open("{}/package/server.json".format(BASE_DIR)) as migrate_file:
+    with open("/home/server.json") as migrate_file:
         subprocess.call("python3 /home/{}/manage.py migrate".format(migrate_file['project_name']), shell=True)
 
 
