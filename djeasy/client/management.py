@@ -5,6 +5,10 @@ from termcolor import cprint
 import os
 import sys
 
+"""
+Bu modül, Alexa.com üzerinden sitelerin analiz bilgilerini elde etmeye yaramaktadır.
+"""
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # As program only works on Python 3, avoiding to run on Python 2
@@ -141,6 +145,7 @@ def RunEasy():
     easy.__copy__()
     easy.extra()
     easy.save()
+    easy.info_save()
     subprocess.call("service nginx restart", shell=True)
     subprocess.call("systemctl restart gunicorn", shell=True)
 
