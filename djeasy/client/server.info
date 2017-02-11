@@ -1,8 +1,8 @@
 [
 
-      "Server": "{0}",
+      "Server": "{1}",
 
-      "Static_URL": "{1}",
+      "Static_URL": "{2}",
 
-      "Project_name": "{2}"
+      "Project_name": "{3}"
 ]

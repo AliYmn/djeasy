@@ -62,12 +62,22 @@ class EasyInstall():
             subprocess.call(nginx_package['name'], shell=True)
             cprint("Nginx successful!", 'green', attrs=['bold'])
 
+    def info_save(self):
+        with open("{}/client/server.info".format(BASE_DIR)) as info_files:
+            info = info_files.read().format(self.project_name)
+            file_info = open('{}/package/server.info'.format(BASE_DIR,self.server_name_or_ip,self.static_url,self.project_name), 'w')
+            file_info.write(info)
+            file_info.flush()
+            file_info.close()
+            subprocess.call("cp {}/client/server.info {}/package/".format(BASE_DIR), shell=True)
+
 
     def extra(self):
         subprocess.call('pip3 install -r /home/{}/requirements.txt'.format(self.project_name), shell=True)
 
     def save(self):
         with open('{}/client/server.info'.format(BASE_DIR)) as server_file:
+            server_file = server_file.read().replace('[','{').replace(']','}')
             server_file = server_file.read().format(self.server_name_or_ip, self.static_url, self.project_name)
             file = open('/home/server.info', 'w')
             file.write(server_file)
@@ -77,15 +87,15 @@ class EasyInstall():
             cprint("all successful!", 'green', attrs=['bold'])
 
 def collectstatic():
-    with open("{}/client/server.info".format(BASE_DIR)) as collect_file:
+    with open("{}/package/server.info".format(BASE_DIR)) as collect_file:
         subprocess.call("python3 /home/{}/manage.py collectstatic".format(collect_file['project_name']), shell=True)
 
 def makemigrations():
-    with open("{}/client/server.info".format(BASE_DIR)) as makemigrations_file:
+    with open("{}/package/server.info".format(BASE_DIR)) as makemigrations_file:
         subprocess.call("python3 /home/{}/manage.py makemigrations".format(makemigrations_file['project_name']), shell=True)
 
 def migrate():
-    with open("{}/client/server.info".format(BASE_DIR)) as migrate_file:
+    with open("{}/package/server.info".format(BASE_DIR)) as migrate_file:
         subprocess.call("python3 /home/{}/manage.py migrate".format(migrate_file['project_name']), shell=True)
 
 
