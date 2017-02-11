@@ -69,7 +69,7 @@ class EasyInstall():
             file_info.write(info)
             file_info.flush()
             file_info.close()
-            subprocess.call("cp {}/client/server.info {}/package/".format(BASE_DIR), shell=True)
+            subprocess.call("cp {0}/client/server.info {0}/package/".format(BASE_DIR), shell=True)
 
 
     def extra(self):
