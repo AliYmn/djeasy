@@ -77,10 +77,10 @@ class EasyInstall():
 
     def save(self):
         with open('{}/client/server.info'.format(BASE_DIR)) as server_file:
-            file_fix = server_file.read().replace('[','{').replace(']','}')
-            server_file = file_fix.format(self.server_name_or_ip, self.static_url, self.project_name)
+            server_file = server_file.read().format(self.server_name_or_ip, self.static_url, self.project_name)
+            file_fix = server_file.replace('[','{').replace(']','}')
             file = open('/home/server.json', 'w')
-            file.write(server_file)
+            file.write(file_fix)
             file.flush()
             file.close()
             cprint("/home/server.json file created.", 'red', attrs=['bold'])
