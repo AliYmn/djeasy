@@ -89,17 +89,17 @@ class EasyInstall():
 def collectstatic():
     with open("/home/server.json") as collect_file:
         data = json.load(collect_file)
-        subprocess.call("python3 /home/{}/manage.py collectstatic".format(data['project_name']), shell=True)
+        subprocess.call("python3 /home/{}/manage.py collectstatic".format(data['Project_name']), shell=True)
 
 def makemigrations():
     with open("/home/server.json") as makemigrations_file:
         data = json.load(makemigrations_file)
-        subprocess.call("python3 /home/{}/manage.py makemigrations".format(data['project_name']), shell=True)
+        subprocess.call("python3 /home/{}/manage.py makemigrations".format(data['Project_name']), shell=True)
 
 def migrate():
     with open("/home/server.json") as migrate_file:
         data = json.load(migrate_file)
-        subprocess.call("python3 /home/{}/manage.py migrate".format(data['project_name']), shell=True)
+        subprocess.call("python3 /home/{}/manage.py migrate".format(data['Project_name']), shell=True)
 
 
 def RunEasy():
