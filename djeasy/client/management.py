@@ -15,6 +15,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if not sys.version_info >= (3, 0):
     sys.exit("This program runs only on Python 3.x\nExiting...")
 
+# This program will work only on Linux systems.
+if "Linux" not in platform.system() or not platform.system() == "Linux":
+    sys.exit("This program runs only on Linux machines\nExiting...")
+
 
 class EasyInstall:
     """ Package Install and Settings """
