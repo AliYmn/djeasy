@@ -20,6 +20,12 @@ class EasyInstall:
     """ Package Install and Settings """
 
     def __init__(self, project_name, server_name_or_ip, static_url):
+        """
+        :param project_name: Django project folder
+        :param server_name_or_ip: Server ip or domain
+        :param static_url: Django settings.py STATIC_URL address
+        """
+
         self.project_name = project_name
         self.server_name_or_ip = server_name_or_ip
         self.static_url = static_url
@@ -29,6 +35,8 @@ class EasyInstall:
             self.data = json.load(data_file)
 
     def __call__(self, *args, **kwargs):
+        """Packages Loader"""
+
         cprint("Django client - Uploading packages.", 'red', attrs=['bold'])
         for package in self.data['package']:
             subprocess.call(package['name'], shell=True)
@@ -37,6 +45,8 @@ class EasyInstall:
         subprocess.call("sudo systemctl restart nginx", shell=True)
 
     def __add__(self):
+        """It records Gunicorn vs nginx files."""
+
         # gunicorn file save and move
         with open("{}/client/gunicorn.service".format(BASE_DIR)) as gunicorn_files:
             gunicorn = gunicorn_files.read().format(self.project_name)
@@ -60,6 +70,8 @@ class EasyInstall:
             subprocess.call("cp {}/package/DjangoProject /etc/nginx/sites-available/".format(BASE_DIR), shell=True)
 
     def __copy__(self):
+        """Gunicorn and nginx setting files"""
+
         # Gunicorn
         for gunicorn_package in self.data['gunicorn']:
             cprint(gunicorn_package['message'], 'white', 'on_red', attrs=['bold'])
@@ -72,21 +84,14 @@ class EasyInstall:
             subprocess.call(nginx_package['name'], shell=True)
             cprint("Nginx successful!", 'green', attrs=['bold'])
 
-    def info_save(self):
-        with open("{}/client/server.info".format(BASE_DIR)) as info_files:
-            info = info_files.read().format(self.project_name)
-            file_info = open(
-                '{}/package/server.info'.format(BASE_DIR, self.server_name_or_ip, self.static_url, self.project_name),
-                'w')
-            file_info.write(info)
-            file_info.flush()
-            file_info.close()
-            subprocess.call("cp {0}/client/server.info {0}/package/".format(BASE_DIR), shell=True)
-
     def extra(self):
+        """requirements.txt install"""
+
         subprocess.call('pip3 install -r /home/{}/requirements.txt'.format(self.project_name), shell=True)
 
     def save(self):
+        """Records information."""
+
         with open('{}/client/server.info'.format(BASE_DIR)) as server_file:
             server_file = server_file.read().format(self.server_name_or_ip, self.static_url, self.project_name)
             file_fix = server_file.replace('[', '{').replace(']', '}')
@@ -99,24 +104,32 @@ class EasyInstall:
 
 
 def collectstatic():
+    """Django --collectstatic"""
+
     with open("/home/server.json") as collect_file:
         data = json.load(collect_file)
         subprocess.call("python3 /home/{}/manage.py collectstatic".format(data['Project_name']), shell=True)
 
 
 def makemigrations():
+    """Django --makemigrations"""
+
     with open("/home/server.json") as makemigrations_file:
         data = json.load(makemigrations_file)
         subprocess.call("python3 /home/{}/manage.py makemigrations".format(data['Project_name']), shell=True)
 
 
 def migrate():
+    """Django --migrate"""
+
     with open("/home/server.json") as migrate_file:
         data = json.load(migrate_file)
         subprocess.call("python3 /home/{}/manage.py migrate".format(data['Project_name']), shell=True)
 
 
 def RunEasy():
+    """It receives information from the user."""
+
     while True:
         cprint("Please type in the server ip or domain address.)", 'red', attrs=['bold'])
         server_name_or_ip = str(input('server ip or domain = '))
@@ -145,12 +158,15 @@ def RunEasy():
     easy.__copy__()
     easy.extra()
     easy.save()
-    easy.info_save()
+
+    # Restarting.
     subprocess.call("service nginx restart", shell=True)
     subprocess.call("systemctl restart gunicorn", shell=True)
 
 
 def main():
+    """Working area"""
+
     message = """
 Options:
   --create                 A new site
