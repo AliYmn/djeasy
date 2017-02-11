@@ -6,7 +6,7 @@ import os
 import sys
 
 """
-Bu modül, Alexa.com üzerinden sitelerin analiz bilgilerini elde etmeye yaramaktadır.
+Django Simple Quick Setup
 """
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
