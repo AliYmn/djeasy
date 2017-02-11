@@ -76,6 +76,8 @@ class EasyInstall:
             file_nignx.close()
             cprint("nginx file created.", 'red', attrs=['bold'])
             subprocess.call("cp {}/package/DjangoProject /etc/nginx/sites-available/".format(BASE_DIR), shell=True)
+            subprocess.call("ln -s /etc/nginx/sites-available/DjangoProject /etc/nginx/sites-enabled/DjangoProject",
+                            shell=True)
 
     def __copy__(self):
         """Gunicorn and nginx setting files"""
