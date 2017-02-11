@@ -69,7 +69,18 @@ We are starting now! :)
 Output :
     
  <img src="http://image.prntscr.com/image/3f7c4755b4c145d8ab4e1b5cada271e4.png"/> 
+ 
+ 
+ # Makemigrations - Migrate
   
+ Example;
+ 
+    djeasy --migrate
+    djeasy --makemigrations
+ 
+ Output :
+ 
+ <img src="http://image.prntscr.com/image/46cec782f37841f49c7fbe9fe9e953a3.png"/>
  
 # Congratulations Successful!
 
