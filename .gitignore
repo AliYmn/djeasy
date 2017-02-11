@@ -95,3 +95,4 @@ ENV/
 .idea/vcs.xml/
 
 .pypirc
+.setup.cfg
