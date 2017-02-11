@@ -3,6 +3,7 @@ import json
 from termcolor import cprint
 import os
 import sys
+import platform
 
 """
 Django Simple Quick Setup
