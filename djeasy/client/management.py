@@ -158,14 +158,17 @@ Options:
         if sys.argv[1] == "--create":
             RunEasy()
 
-        if sys.argv[1] == "--collectstatic":
+        elif sys.argv[1] == "--collectstatic":
             collectstatic()
 
-        if sys.argv[1] == "--makemigrations":
+        elif sys.argv[1] == "--makemigrations":
             makemigrations()
 
-        if sys.argv[1] == "--migrate":
+        elif sys.argv[1] == "--migrate":
             migrate()
+
+        else:
+            print("Command not found\n",message)
 
     else:
         print(message)
