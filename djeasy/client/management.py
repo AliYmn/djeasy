@@ -76,13 +76,13 @@ class EasyInstall:
         for gunicorn_package in self.data['gunicorn']:
             cprint(gunicorn_package['message'], 'white', 'on_red', attrs=['bold'])
             subprocess.call(gunicorn_package['name'], shell=True)
-            cprint("Gunicorn successful!", 'green', attrs=['bold'])
+        cprint("Gunicorn successful!", 'green', attrs=['bold'])
 
         # Nginx
         for nginx_package in self.data['nginx']:
             cprint(nginx_package['message'], 'white', 'on_red', attrs=['bold'])
             subprocess.call(nginx_package['name'], shell=True)
-            cprint("Nginx successful!", 'green', attrs=['bold'])
+        cprint("Nginx successful!", 'green', attrs=['bold'])
 
     def extra(self):
         """requirements.txt install"""
