@@ -79,23 +79,23 @@ class EasyInstall():
         with open('{}/client/server.info'.format(BASE_DIR)) as server_file:
             server_file = server_file.read().replace('[','{').replace(']','}')
             server_file = server_file.read().format(self.server_name_or_ip, self.static_url, self.project_name)
-            file = open('/home/server.info', 'w')
+            file = open('/home/server.json', 'w')
             file.write(server_file)
             file.flush()
             file.close()
-            cprint("/home/server.info file created.", 'red', attrs=['bold'])
+            cprint("/home/server.json file created.", 'red', attrs=['bold'])
             cprint("all successful!", 'green', attrs=['bold'])
 
 def collectstatic():
-    with open("{}/package/server.info".format(BASE_DIR)) as collect_file:
+    with open("{}/package/server.json".format(BASE_DIR)) as collect_file:
         subprocess.call("python3 /home/{}/manage.py collectstatic".format(collect_file['project_name']), shell=True)
 
 def makemigrations():
-    with open("{}/package/server.info".format(BASE_DIR)) as makemigrations_file:
+    with open("{}/package/server.json".format(BASE_DIR)) as makemigrations_file:
         subprocess.call("python3 /home/{}/manage.py makemigrations".format(makemigrations_file['project_name']), shell=True)
 
 def migrate():
-    with open("{}/package/server.info".format(BASE_DIR)) as migrate_file:
+    with open("{}/package/server.json".format(BASE_DIR)) as migrate_file:
         subprocess.call("python3 /home/{}/manage.py migrate".format(migrate_file['project_name']), shell=True)
 
 
