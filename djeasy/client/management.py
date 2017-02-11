@@ -160,7 +160,7 @@ def RunEasy():
     easy.save()
 
     # Restarting.
-    subprocess.call("service nginx restart", shell=True)
+    subprocess.call("secrvice nginx restart", shell=True)
     subprocess.call("systemctl restart gunicorn", shell=True)
 
 
