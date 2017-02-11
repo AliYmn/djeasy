@@ -74,6 +74,7 @@ class EasyInstall():
             file_info.close()
             subprocess.call("cp {0}/client/server.info {0}/package/".format(BASE_DIR), shell=True)
 
+
     def extra(self):
         subprocess.call('pip3 install -r /home/{}/requirements.txt'.format(self.project_name), shell=True)
 
