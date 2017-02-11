@@ -5,6 +5,11 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 import sys
 
+# As program only works on Python 3, avoiding to run on Python 2
+if not sys.version_info >= (3,0):
+    sys.exit("This program runs only on Python 3.x\nExiting...")
+    
+
 class EasyInstall():
     """ Package Install and Settings """
     def __init__(self,project_name,server_name_or_ip,static_url):
