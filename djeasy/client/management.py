@@ -1,9 +1,9 @@
-#-*- coding: utf-8 -*-
 import subprocess
 import json
 from termcolor import cprint
 import os
 import sys
+import platform
 
 """
 Django Simple Quick Setup
@@ -14,6 +14,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # As program only works on Python 3, avoiding to run on Python 2
 if not sys.version_info >= (3, 0):
     sys.exit("This program runs only on Python 3.x\nExiting...")
+
+# This program will work only on Debian and Ubuntu.
+if sys.version_info < (3, 7):
+    if not "debian" or not "ubuntu" in str(platform.linux_distribution()).lower():
+        sys.exit("This program runs only on Debian and Ubuntu\nExiting...")
+else:
+    if not "debian" or not "ubuntu" in str(platform.platform()).lower():
+        sys.exit("This program runs only on Debian and Ubuntu\nExiting...")
 
 
 class EasyInstall:
