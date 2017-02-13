@@ -70,6 +70,7 @@ Output :
     
  <img src="http://image.prntscr.com/image/3f7c4755b4c145d8ab4e1b5cada271e4.png"/> 
  
+ -
  
  # Makemigrations - Migrate
   
