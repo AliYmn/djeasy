@@ -73,7 +73,7 @@ Output :
  -
  Is not it good?
  
- # Makemigrations - Migrate
+ # Database
   
  Example;
  
