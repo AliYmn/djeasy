@@ -77,12 +77,12 @@
         },
 
         {
-            "name": "systemctl restart nginx",
+            "name": "sudo systemctl restart nginx",
             "message": "Restart Nginx!"
         },
 
         {
-            "name": "systemctl restart gunicorn",
+            "name": "sudo systemctl restart gunicorn",
             "message": "Restart Gunicorn!"
         }
 

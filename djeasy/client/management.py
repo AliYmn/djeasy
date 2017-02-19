@@ -63,7 +63,7 @@ class EasyInstall:
             file_gunicorn.flush()
             file_gunicorn.close()
             cprint("Gunicorn.service file created.", 'red', attrs=['bold'])
-            subprocess.call("cp {}/package/gunicorn.service /etc/systemd/system/".format(BASE_DIR), shell=True)
+            subprocess.call("sudo cp {}/package/gunicorn.service /etc/systemd/system/".format(BASE_DIR), shell=True)
 
         # nginx file save and move
         with open("{}/client/DjangoProject".format(BASE_DIR)) as nginx_files:
@@ -75,7 +75,7 @@ class EasyInstall:
             file_nignx.flush()
             file_nignx.close()
             cprint("nginx file created.", 'red', attrs=['bold'])
-            subprocess.call("cp {}/package/DjangoProject /etc/nginx/sites-available/".format(BASE_DIR), shell=True)
+            subprocess.call("sudo cp {}/package/DjangoProject /etc/nginx/sites-available/".format(BASE_DIR), shell=True)
 
     def __copy__(self):
         """Gunicorn and nginx setting files"""
@@ -95,7 +95,7 @@ class EasyInstall:
     def extra(self):
         """requirements.txt install"""
 
-        subprocess.call('pip3 install -r /home/{}/requirements.txt'.format(self.project_name), shell=True)
+        subprocess.call('sudo pip3 install -r /home/{}/requirements.txt'.format(self.project_name), shell=True)
 
     def save(self):
         """Records information."""
@@ -124,7 +124,7 @@ def makemigrations():
 
     with open("/home/server.json") as makemigrations_file:
         data = json.load(makemigrations_file)
-        subprocess.call("python3 /home/{}/manage.py makemigrations".format(data['Project_name']), shell=True)
+        subprocess.call("sudo python3 /home/{}/manage.py makemigrations".format(data['Project_name']), shell=True)
 
 
 def migrate():
@@ -132,7 +132,7 @@ def migrate():
 
     with open("/home/server.json") as migrate_file:
         data = json.load(migrate_file)
-        subprocess.call("python3 /home/{}/manage.py migrate".format(data['Project_name']), shell=True)
+        subprocess.call("sudo python3 /home/{}/manage.py migrate".format(data['Project_name']), shell=True)
 
 
 def RunEasy():
@@ -168,8 +168,8 @@ def RunEasy():
     easy.save()
 
     # Restarting.
-    subprocess.call("service nginx restart", shell=True)
-    subprocess.call("systemctl restart gunicorn", shell=True)
+    subprocess.call("sudo service nginx restart", shell=True)
+    subprocess.call("sudo systemctl restart gunicorn", shell=True)
 
 
 def main():
