@@ -109,7 +109,7 @@ class EasyInstall:
             file.close()
             cprint("/home/server.json file created.", 'red', attrs=['bold'])
             cprint("all successful!", 'green', attrs=['bold'])
-
+            subprocess.call('sudo chmod -R 777 /home/server.json', shell=True)
 
 def collectstatic():
     """Django --collectstatic"""
