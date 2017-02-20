@@ -23,7 +23,7 @@
 
 Example Project ;
 
-    DjangoProject  --> move to /home/ Add!
+    DjangoProject  --> Move to the /home/ directory.
     ├── DjangoProject
     │   ├── __init__.py
     │   ├── settings.py
