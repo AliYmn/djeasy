@@ -39,7 +39,7 @@ class EasyInstall:
         self.static_url = static_url
 
         # package.json read.
-        with open("{}/client/package.json".format(BASE_DIR)) as data_file:
+        with open("{}/client/file/package.json".format(BASE_DIR)) as data_file:
             self.data = json.load(data_file)
 
     def __call__(self, *args, **kwargs):
@@ -56,7 +56,7 @@ class EasyInstall:
         """It records Gunicorn vs nginx files."""
 
         # gunicorn file save and move
-        with open("{}/client/gunicorn.service".format(BASE_DIR)) as gunicorn_files:
+        with open("{}/client/file/gunicorn.service".format(BASE_DIR)) as gunicorn_files:
             gunicorn = gunicorn_files.read().format(self.project_name)
             file_gunicorn = open('{}/package/gunicorn.service'.format(BASE_DIR), 'w')
             file_gunicorn.write(gunicorn)
@@ -66,7 +66,7 @@ class EasyInstall:
             subprocess.call("sudo cp {}/package/gunicorn.service /etc/systemd/system/".format(BASE_DIR), shell=True)
 
         # nginx file save and move
-        with open("{}/client/DjangoProject".format(BASE_DIR)) as nginx_files:
+        with open("{}/client/file/DjangoProject".format(BASE_DIR)) as nginx_files:
             nginx = nginx_files.read().format(self.server_name_or_ip, self.static_url, self.project_name)
             nginx_file = nginx.replace('[', '{').replace(']', '}')
 
@@ -100,7 +100,7 @@ class EasyInstall:
     def save(self):
         """Records information."""
 
-        with open('{}/client/server.info'.format(BASE_DIR)) as server_file:
+        with open('{}/client/file/server.info'.format(BASE_DIR)) as server_file:
             server_file = server_file.read().format(self.server_name_or_ip, self.static_url, self.project_name)
             file_fix = server_file.replace('[', '{').replace(']', '}')
             file = open('/home/server.json', 'w')
