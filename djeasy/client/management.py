@@ -154,33 +154,6 @@ class EasyInstall:
 
         subprocess.call('sudo chmod -R 777 /home/{}.json'.format(self.project_name), shell=True)
 
-def collectstatic(project_name):
-    """Django --collectstatic"""
-
-    with open("/home/{}.json".format(project_name)) as collect_file:
-        data = json.load(collect_file)
-        subprocess.call("python3 {}/manage.py collectstatic".format(data['project_file'], shell=True))
-    cprint("Process completed successfully.", 'green', attrs=['bold'])
-
-def makemigrations(project_name):
-    """Django --makemigrations"""
-
-    with open("/home/{}.json".format(project_name)) as makemigrations_file:
-        data = json.load(makemigrations_file)
-        subprocess.call("python3 {}/manage.py makemigrations".format(data['project_file'], shell=True))
-
-    cprint("Process completed successfully.", 'green', attrs=['bold'])
-
-
-def migrate(project_name):
-    """Django --migrate"""
-
-    with open("/home/{}.json".format(project_name)) as migrate_file:
-        data = json.load(migrate_file)
-        subprocess.call("python3 {}/manage.py migrate".format(data['project_file'], shell=True))
-
-    cprint("Process completed successfully.", 'green', attrs=['bold'])
-
 def nginx_restart():
     """Nginx Restart"""
     subprocess.call("sudo service nginx restart", shell=True)
@@ -270,11 +243,8 @@ message = """
 Options:
 
     --create                            Create a new site.
-    project_name --collectstatic        Static files
-    project_name --makemigrations       Database makemigrations
-    project_name --migrate              Database migrate
-    project_name --gunicorn             Gunicorn restart
     --nginx                             Nginx restart
+    project_name --gunicorn             Gunicorn restart
 
 """
 
@@ -293,16 +263,7 @@ else:
 
     if(len(sys.argv)) > 2:
 
-        if str(sys.argv[2]) == "--collectstatic":
-            collectstatic(sys.argv[1])
-
-        elif str(sys.argv[2]) == "--makemigrations":
-            makemigrations(sys.argv[1])
-
-        elif str(sys.argv[2]) == "--migrate":
-            migrate(sys.argv[1])
-
-        elif str(sys.argv[2]) == "--gunicorn":
+        if  str(sys.argv[2]) == "--gunicorn":
             gunicorn_restart(sys.argv[1])
 
         else:
