@@ -173,13 +173,25 @@ def gunicorn_restart(project_name):
 
 def RunEasy():
     """It receives information from the user."""
+    import re
 
     while True:
         cprint("Please type in the server ip or domain address.)", 'red', attrs=['bold'])
         server_name_or_ip = str(input('server ip or domain = '))
+
+        domain_valid = re.match("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2"
+                                "[0-4][0-9]|25[0-5])$",server_name_or_ip)
+
+        ip_valid = re.match("^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za"
+                            "-z0-9])$", server_name_or_ip)
+
         if server_name_or_ip == "":
             cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
             continue
+        else:
+            if(domain_valid or ip_valid):
+                cprint("Please enter a valid address...)", 'red', attrs=['bold'])
+                continue
 
         cprint("Write your STATIC_URL (Django Settings.py)", 'red', attrs=['bold'])
         static_url = str(input('STATIC_URL = '))
