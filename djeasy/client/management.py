@@ -78,6 +78,9 @@ class EasyInstall:
         subprocess.call("sudo cp {}/package/{}.service /etc/systemd/system/".
                         format(BASE_DIR,self.gunicorn_file), shell=True)
 
+        subprocess.call("sudo systemctl start {0} & sudo systemctl enable {0}".format(self.gunicorn_file), shell=True)
+        cprint("gunicorn start and enable", 'green', attrs=['bold'])
+
         # nginx file save and move
         with open("{}/client/file/nginx".format(BASE_DIR)) as nginx_files:
             nginx = nginx_files.read().format(self.server_name_or_ip,

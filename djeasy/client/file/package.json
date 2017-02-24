@@ -43,8 +43,8 @@
     "gunicorn": [
 
         {
-            "name": "sudo systemctl start gunicorn & sudo systemctl enable gunicorn",
-            "message": "Gunicorn settings were made."
+            "name": "sudo systemctl {} restart",
+            "message": "Restart gunicorn"
         }
 
     ],
@@ -57,8 +57,8 @@
         },
 
         {
-            "name": "sudo systemctl restart nginx & sudo systemctl gunicorn restart",
-            "message": "Restart nginx and gunicorn"
+            "name": "sudo systemctl restart nginx",
+            "message": "Restart nginx"
         },
 
         {
@@ -69,11 +69,6 @@
         {
             "name": "sudo systemctl restart nginx",
             "message": "Restart Nginx!"
-        },
-
-        {
-            "name": "sudo systemctl restart gunicorn",
-            "message": "Restart Gunicorn!"
         }
 
     ]
