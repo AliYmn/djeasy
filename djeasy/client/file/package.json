@@ -67,11 +67,6 @@
         },
 
         {
-            "name": "sudo ln -s /etc/nginx/sites-available/DjangoProject /etc/nginx/sites-enabled",
-            "message": "Nginx enabled."
-        },
-
-        {
             "name": "sudo systemctl restart nginx",
             "message": "Restart Nginx!"
         },

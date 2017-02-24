@@ -90,7 +90,11 @@ class EasyInstall:
             file_nignx.close()
 
         cprint("{} file created.".format(self.nginx_file), 'green', attrs=['bold'])
+
         subprocess.call("sudo cp {}/package/{} /etc/nginx/sites-available/".
+                        format(BASE_DIR, self.nginx_file), shell=True)
+
+        subprocess.call("sudo ln -s /etc/nginx/sites-available/{} /etc/nginx/sites-enabled".
                         format(BASE_DIR, self.nginx_file), shell=True)
 
     def __copy__(self):
@@ -230,14 +234,14 @@ message = """
 
 Options:
 
---create                              A new site
-project_name --collectstatic          static file
-project_name --makemigrations         database makemigrations
-project_name --migrate                database migrate
+    --create                              A new site
+    project_name --collectstatic          static file
+    project_name --makemigrations         database makemigrations
+    project_name --migrate                database migrate
 
 """
 
-if (len(sys.argv)) >= 0:
+if (len(sys.argv)) > 1:
 
     if sys.argv[1] == "--create":
         RunEasy()
