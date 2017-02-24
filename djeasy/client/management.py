@@ -275,7 +275,7 @@ Options:
 
 """
 
-if (len(sys.argv)) > 1:
+if (len(sys.argv)) < 2:
 
     if str(sys.argv[1]) == "--create":
         RunEasy()
@@ -287,6 +287,7 @@ if (len(sys.argv)) > 1:
         print("Command not found\n", message)
 
 else:
+
     if(len(sys.argv)) > 2:
 
         if str(sys.argv[2]) == "--collectstatic":
