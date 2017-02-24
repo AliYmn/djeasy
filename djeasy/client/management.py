@@ -6,9 +6,10 @@ import sys
 import platform
 
 """
-Django Simple Quick Setup
+Djeasy : Django simple quick setup
 """
 
+# Main directory
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # As program only works on Python 3, avoiding to run on Python 2
@@ -33,6 +34,9 @@ class EasyInstall:
         :param project_name: Django project folder
         :param server_name_or_ip: Server ip or domain
         :param static_url: Django settings.py STATIC_URL address
+        :param gunicorn_file : gunicorn file name
+        :param nginx_file : nginx file name
+        :param virtualenv_file : virtualenv file directory
         """
 
         self.project_name = project_name
@@ -75,16 +79,19 @@ class EasyInstall:
 
         cprint("{}.service file created.".format(self.gunicorn_file), 'green', attrs=['bold'])
 
+        # File move operations
         subprocess.call("sudo cp {}/package/{}.service /etc/systemd/system/".
                         format(BASE_DIR,self.gunicorn_file), shell=True)
 
+        # Gunicorn recording and restart
         subprocess.call("sudo systemctl start {0} & sudo systemctl enable {0}".format(self.gunicorn_file), shell=True)
-        cprint("gunicorn start and enable", 'green', attrs=['bold'])
+        cprint("Gunicorn was registered and restarted.", 'green', attrs=['bold'])
 
         # nginx file save and move
         with open("{}/client/file/nginx".format(BASE_DIR)) as nginx_files:
             nginx = nginx_files.read().format(self.server_name_or_ip,
                                               self.static_url,self.project_file,self.project_name)
+
             nginx_file = nginx.replace('[', '{').replace(']', '}')
 
             file_nignx = open("{}/package/{}".format(BASE_DIR, self.nginx_file), 'w')
@@ -94,9 +101,11 @@ class EasyInstall:
 
         cprint("{} file created.".format(self.nginx_file), 'green', attrs=['bold'])
 
+        # File move operations
         subprocess.call("sudo cp {}/package/{} /etc/nginx/sites-available/".
                         format(BASE_DIR, self.nginx_file), shell=True)
 
+        # Nginx recording and restart
         subprocess.call("sudo ln -s /etc/nginx/sites-available/{} /etc/nginx/sites-enabled".
                         format(self.nginx_file), shell=True)
 
@@ -120,9 +129,10 @@ class EasyInstall:
     def requirements(self):
         """requirements.txt install"""
 
-        subprocess.call('{}/bin/pip install -r {}/requirements.txt'.format(self.virtualenv_file,self.project_file),shell=True)
-        subprocess.call('{}/bin/pip install gunicorn'.format(self.virtualenv_file),shell=True)
+        subprocess.call('{}/bin/pip install -r {}/requirements.txt'.format(self.virtualenv_file,
+                                                                           self.project_file),shell=True)
 
+        subprocess.call('{}/bin/pip install gunicorn'.format(self.virtualenv_file),shell=True)
         cprint("requirements.txt successfully loaded.!", 'green', attrs=['bold'])
 
     def save(self):
@@ -167,6 +177,21 @@ def migrate(project_name):
         data = json.load(migrate_file)
         subprocess.call("sudo python3 {}/manage.py migrate".format(data['project_file']), shell=True)
 
+def nginx_restart():
+    """Nginx Restart"""
+    subprocess.call("sudo service nginx restart", shell=True)
+    subprocess.call("sudo systemctl restart nginx", shell=True)
+    cprint("Nginx has been successfully restarted.", 'green', attrs=['bold'])
+
+def gunicorn_restart(project_name):
+    """Gunicorn Restart"""
+
+    with open("/home/{}.json".format(project_name)) as gunicorn_file:
+        data = json.load(gunicorn_file)
+        subprocess.call("sudo systemctl restart {}".format(data['gunicorn_file']), shell=True)
+
+    cprint("Gunicorn has been successfully restarted.", 'green', attrs=['bold'])
+
 
 def RunEasy():
     """It receives information from the user."""
@@ -178,7 +203,7 @@ def RunEasy():
             cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
             continue
 
-        cprint("Write your STATIC_URL", 'red', attrs=['bold'])
+        cprint("Write your STATIC_URL (Django Settings.py)", 'red', attrs=['bold'])
         static_url = str(input('STATIC_URL = '))
         if static_url == "":
             cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
@@ -240,16 +265,18 @@ message = """
 
 Options:
 
-    --create                              A new site
-    project_name --collectstatic          static file
-    project_name --makemigrations         database makemigrations
-    project_name --migrate                database migrate
+    --create                              Create a new site.
+    project_name --collectstatic          Static files
+    project_name --makemigrations         Database makemigrations
+    project_name --migrate                Database migrate
+    project_name --nginx_restart          Nginx restart
+    project_name --gunicorn_restart       Gunicorn restart
 
 """
 
 if (len(sys.argv)) > 1:
 
-    if sys.argv[1] == "--create":
+    if str(sys.argv[1]) == "--create":
         RunEasy()
 
     elif str(sys.argv[2]) == "--collectstatic":
@@ -263,6 +290,14 @@ if (len(sys.argv)) > 1:
     elif str(sys.argv[2]) == "--migrate":
 
         migrate(sys.argv[1])
+
+    elif str(sys.argv[2]) == "--nginx_restart":
+
+        nginx_restart()
+
+    elif str(sys.argv[2]) == "--gunicorn_restart":
+
+        gunicorn_restart(sys.argv[1])
 
     else:
         print("Command not found\n",message)
