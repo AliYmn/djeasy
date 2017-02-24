@@ -129,10 +129,10 @@ class EasyInstall:
     def requirements(self):
         """requirements.txt install"""
 
-        subprocess.call('{}/bin/pip install -r {}/requirements.txt'.format(self.virtualenv_file,
+        subprocess.call('{}/bin/pip3 install -r {}/requirements.txt'.format(self.virtualenv_file,
                                                                            self.project_file),shell=True)
 
-        subprocess.call('{}/bin/pip install gunicorn'.format(self.virtualenv_file),shell=True)
+        subprocess.call('{}/bin/pip3 install gunicorn'.format(self.virtualenv_file),shell=True)
         cprint("requirements.txt successfully loaded.!", 'green', attrs=['bold'])
 
     def save(self):
@@ -280,28 +280,27 @@ if (len(sys.argv)) > 1:
     if str(sys.argv[1]) == "--create":
         RunEasy()
 
-    elif str(sys.argv[2]) == "--collectstatic":
-
-        collectstatic(sys.argv[1])
-
-    elif str(sys.argv[2]) == "--makemigrations":
-
-        makemigrations(sys.argv[1])
-
-    elif str(sys.argv[2]) == "--migrate":
-
-        migrate(sys.argv[1])
-
     elif str(sys.argv[2]) == "--nginx":
-
         nginx_restart()
 
-    elif str(sys.argv[2]) == "--gunicorn":
+        if(len(sys.argv)) > 2:
 
-        gunicorn_restart(sys.argv[1])
+            if str(sys.argv[2]) == "--collectstatic":
+                collectstatic(sys.argv[1])
 
-    else:
-        print("Command not found\n",message)
+            elif str(sys.argv[2]) == "--makemigrations":
+                makemigrations(sys.argv[1])
+
+            elif str(sys.argv[2]) == "--migrate":
+                migrate(sys.argv[1])
+
+            elif str(sys.argv[2]) == "--gunicorn":
+                gunicorn_restart(sys.argv[1])
+
+            else:
+                print("Command not found\n",message)
+        else:
+            print("Command not found\n", message)
 
 else:
     print(message)
