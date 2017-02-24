@@ -282,6 +282,10 @@ if (len(sys.argv)) > 1:
 
     elif str(sys.argv[1]) == "--nginx":
         nginx_restart()
+
+    else :
+        print("Command not found\n", message)
+
 else:
     if(len(sys.argv)) > 2:
 
