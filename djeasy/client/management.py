@@ -117,9 +117,7 @@ class EasyInstall:
     def requirements(self):
         """requirements.txt install"""
 
-        subprocess.Popen(['{}/bin/pip3'.format(self.virtualenv_file), '-r', '{}/{}/requirements.txt'.
-                                                                      format(BASE_DIR,self.project_file)])
-
+        subprocess.call('{}/bin/pip install -r {}/requirements.txt'.format(self.virtualenv_file,self.project_file),shell=True)
         cprint("requirements.txt successfully loaded.!", 'green', attrs=['bold'])
 
     def save(self):
