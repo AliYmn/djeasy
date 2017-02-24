@@ -242,15 +242,15 @@ def main():
         if sys.argv[1] == "--create":
             RunEasy()
 
-        elif str(sys.argv[2]).split('') == "--collectstatic":
+        elif str(sys.argv[2]) == "--collectstatic":
 
             collectstatic(sys.argv[1])
 
-        elif str(sys.argv[2]).split('') == "--makemigrations":
+        elif str(sys.argv[2]) == "--makemigrations":
 
             makemigrations(sys.argv[1])
 
-        elif str(sys.argv[2]).split('') == "--migrate":
+        elif str(sys.argv[2]) == "--migrate":
 
             migrate(sys.argv[1])
 
@@ -263,5 +263,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-command_template = '/bin/bash -c "source /home/blog/bin/activate" '
