@@ -159,15 +159,18 @@ def collectstatic(project_name):
 
     with open("/home/{}.json".format(project_name)) as collect_file:
         data = json.load(collect_file)
-        subprocess.call("python3 {}/manage.py collectstatic".format(data['project_name']), shell=True)
-
+        subprocess.call("sudo python3 {}/{}/manage.py collectstatic".format(data['project_file'],
+                                                                             data['project_name']), shell=True)
+    cprint("Process completed successfully.", 'green', attrs=['bold'])
 
 def makemigrations(project_name):
     """Django --makemigrations"""
 
     with open("/home/{}.json".format(project_name)) as makemigrations_file:
         data = json.load(makemigrations_file)
-        subprocess.call("sudo python3 {}/manage.py makemigrations".format(data['project_name']), shell=True)
+        subprocess.call("sudo python3 {}/{}/manage.py makemigrations".format(data['project_file'],
+                                                                             data['project_name']), shell=True)
+    cprint("Process completed successfully.", 'green', attrs=['bold'])
 
 
 def migrate(project_name):
@@ -175,7 +178,9 @@ def migrate(project_name):
 
     with open("/home/{}.json".format(project_name)) as migrate_file:
         data = json.load(migrate_file)
-        subprocess.call("sudo python3 {}/manage.py migrate".format(data['project_name']), shell=True)
+        subprocess.call("sudo python3 {}/{}/manage.py migrate".format(data['project_file'],
+                                                                             data['project_name']), shell=True)
+    cprint("Process completed successfully.", 'green', attrs=['bold'])
 
 def nginx_restart():
     """Nginx Restart"""
