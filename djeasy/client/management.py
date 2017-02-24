@@ -109,7 +109,7 @@ class EasyInstall:
 
         # Nginx
         for nginx_package in self.data['nginx']:
-            cprint(nginx_package['message'], 'white',  'green', attrs=['bold'])
+            cprint(nginx_package['message'], 'green', attrs=['bold'])
             subprocess.call(nginx_package['name'], shell=True)
 
         cprint("Nginx successful!", 'green', attrs=['bold'])
