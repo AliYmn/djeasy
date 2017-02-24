@@ -121,6 +121,7 @@ class EasyInstall:
         """requirements.txt install"""
 
         subprocess.call('{}/bin/pip install -r {}/requirements.txt'.format(self.virtualenv_file,self.project_file),shell=True)
+        subprocess.call('{}/bin/pip install install gunicorn')
         cprint("requirements.txt successfully loaded.!", 'green', attrs=['bold'])
 
     def save(self):
@@ -227,7 +228,8 @@ def RunEasy():
 
     # Restarting.
     subprocess.call("sudo service nginx restart", shell=True)
-    subprocess.call("sudo systemctl restart gunicorn", shell=True)
+    subprocess.call("sudo systemctl restart nginx", shell=True)
+    subprocess.call("sudo systemctl restart {}".format(gunicorn_file), shell=True)
 
 
 def main():
