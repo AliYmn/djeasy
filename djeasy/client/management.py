@@ -237,7 +237,7 @@ project_name --migrate                database migrate
 
 """
 
-if (len(sys.argv)) >= 1:
+if (len(sys.argv)) >= 0:
 
     if sys.argv[1] == "--create":
         RunEasy()
