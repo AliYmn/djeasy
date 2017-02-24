@@ -67,11 +67,6 @@
         },
 
         {
-            "name": "sudo ufw delete allow 8000",
-            "message": "Nginx permissions."
-        },
-
-        {
             "name": "sudo ln -s /etc/nginx/sites-available/DjangoProject /etc/nginx/sites-enabled",
             "message": "Nginx enabled."
         },

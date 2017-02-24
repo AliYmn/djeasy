@@ -1,10 +1,16 @@
 [
 
-      "Server": "{0}",
+      "project_name": "{0}",
 
-      "Static_URL": "{1}",
+      "server_name_or_ip": "{1}",
 
-      "Project_name": "{2}"
+      "static_url": "{2}",
 
+      "gunicorn_file": "{3}",
 
+      "nginx_file": "{4}",
+
+      "project_file": "{5}",
+
+      "virtualenv_file": "{6}",
 ]

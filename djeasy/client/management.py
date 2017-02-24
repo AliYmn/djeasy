@@ -27,7 +27,8 @@ else:
 class EasyInstall:
     """ Package Install and Settings """
 
-    def __init__(self, project_name, server_name_or_ip, static_url):
+    def __init__(self, project_name, server_name_or_ip, static_url,
+                 gunicorn_file, nginx_file, project_file, virtualenv_file):
         """
         :param project_name: Django project folder
         :param server_name_or_ip: Server ip or domain
@@ -37,103 +38,125 @@ class EasyInstall:
         self.project_name = project_name
         self.server_name_or_ip = server_name_or_ip
         self.static_url = static_url
+        self.gunicorn_file = gunicorn_file
+        self.nginx_file = nginx_file
+        self.project_file = project_file
+        self.virtualenv_file = virtualenv_file
 
         # package.json read.
         with open("{}/client/file/package.json".format(BASE_DIR)) as data_file:
             self.data = json.load(data_file)
 
+
     def __call__(self, *args, **kwargs):
         """Packages Loader"""
 
-        cprint("Django client - Uploading packages.", 'red', attrs=['bold'])
         for package in self.data['package']:
+            cprint("{}".format(package['message']), 'green', attrs=['bold'])
             subprocess.call(package['name'], shell=True)
 
+        # Restart.
         subprocess.call("sudo systemctl daemon reload", shell=True)
         subprocess.call("sudo systemctl restart nginx", shell=True)
+
+        # Successfull package
+        cprint("The packages have been successfully installed.", 'green', attrs=['bold'])
 
     def __add__(self):
         """It records Gunicorn vs nginx files."""
 
         # gunicorn file save and move
         with open("{}/client/file/gunicorn.service".format(BASE_DIR)) as gunicorn_files:
-            gunicorn = gunicorn_files.read().format(self.project_name)
-            file_gunicorn = open('{}/package/gunicorn.service'.format(BASE_DIR), 'w')
+            gunicorn = gunicorn_files.read().format(self.project_name,self.project_file,self.virtualenv_file)
+            file_gunicorn = open('{}/package/{}.service'.format(BASE_DIR, self.gunicorn_file), 'w')
             file_gunicorn.write(gunicorn)
             file_gunicorn.flush()
             file_gunicorn.close()
-            cprint("Gunicorn.service file created.", 'red', attrs=['bold'])
-            subprocess.call("sudo cp {}/package/gunicorn.service /etc/systemd/system/".format(BASE_DIR), shell=True)
+
+        cprint("{}.service file created.".format(self.gunicorn_file), 'green', attrs=['bold'])
+
+        subprocess.call("sudo cp {}/package/{}.service /etc/systemd/system/".
+                        format(BASE_DIR,self.gunicorn_file), shell=True)
 
         # nginx file save and move
-        with open("{}/client/file/DjangoProject".format(BASE_DIR)) as nginx_files:
-            nginx = nginx_files.read().format(self.server_name_or_ip, self.static_url, self.project_name)
+        with open("{}/client/file/nginx".format(BASE_DIR)) as nginx_files:
+            nginx = nginx_files.read().format(self.server_name_or_ip,
+                                              self.static_url,self.project_file,self.project_name)
             nginx_file = nginx.replace('[', '{').replace(']', '}')
 
-            file_nignx = open("{}/package/DjangoProject".format(BASE_DIR), 'w')
+            file_nignx = open("{}/package/{}".format(BASE_DIR, self.nginx_file), 'w')
             file_nignx.write(nginx_file)
             file_nignx.flush()
             file_nignx.close()
-            cprint("nginx file created.", 'red', attrs=['bold'])
-            subprocess.call("sudo cp {}/package/DjangoProject /etc/nginx/sites-available/".format(BASE_DIR), shell=True)
+
+        cprint("{} file created.".format(self.nginx_file), 'green', attrs=['bold'])
+        subprocess.call("sudo cp {}/package/{} /etc/nginx/sites-available/".
+                        format(BASE_DIR, self.nginx_file), shell=True)
 
     def __copy__(self):
         """Gunicorn and nginx setting files"""
 
         # Gunicorn
         for gunicorn_package in self.data['gunicorn']:
-            cprint(gunicorn_package['message'], 'white', 'on_red', attrs=['bold'])
+            cprint(gunicorn_package['message'], 'green', attrs=['bold'])
             subprocess.call(gunicorn_package['name'], shell=True)
+
         cprint("Gunicorn successful!", 'green', attrs=['bold'])
 
         # Nginx
         for nginx_package in self.data['nginx']:
-            cprint(nginx_package['message'], 'white', 'on_red', attrs=['bold'])
+            cprint(nginx_package['message'], 'white',  'green', attrs=['bold'])
             subprocess.call(nginx_package['name'], shell=True)
+
         cprint("Nginx successful!", 'green', attrs=['bold'])
 
-    def extra(self):
+    def requirements(self):
         """requirements.txt install"""
 
-        subprocess.call('sudo pip3 install -r /home/{}/requirements.txt'.format(self.project_name), shell=True)
+        subprocess.Popen(['{}/bin/pip3'.format(self.virtualenv_file), 'install', 'djeasy'])
+        cprint("requirements.txt successfully loaded.!", 'green', attrs=['bold'])
 
     def save(self):
         """Records information."""
 
         with open('{}/client/file/server.info'.format(BASE_DIR)) as server_file:
-            server_file = server_file.read().format(self.server_name_or_ip, self.static_url, self.project_name)
+            server_file = server_file.read().format(self.project_name,self.server_name_or_ip,self.static_url,
+                                                    self.gunicorn_file,self.nginx_file,
+                                                    self.project_file,self.virtualenv_file)
+
             file_fix = server_file.replace('[', '{').replace(']', '}')
-            file = open('/home/server.json', 'w')
+            file = open('/home/{}.json'.format(self.project_name), 'w')
             file.write(file_fix)
             file.flush()
             file.close()
-            cprint("/home/server.json file created.", 'red', attrs=['bold'])
-            cprint("all successful!", 'green', attrs=['bold'])
+
+        cprint("/home/{}.json file created...".format(self.project_name), 'green', attrs=['bold'])
+        cprint("All successful!", 'green', attrs=['bold'])
 
         subprocess.call('sudo chmod -R 777 /home/server.json', shell=True)
 
-def collectstatic():
+def collectstatic(project_name):
     """Django --collectstatic"""
 
-    with open("/home/server.json") as collect_file:
+    with open("/home/{}.json".format(project_name)) as collect_file:
         data = json.load(collect_file)
-        subprocess.call("python3 /home/{}/manage.py collectstatic".format(data['Project_name']), shell=True)
+        subprocess.call("python3 {}/manage.py collectstatic".format(data['project_file']), shell=True)
 
 
-def makemigrations():
+def makemigrations(project_name):
     """Django --makemigrations"""
 
-    with open("/home/server.json") as makemigrations_file:
+    with open("/home/{}.json".format(project_name)) as makemigrations_file:
         data = json.load(makemigrations_file)
-        subprocess.call("sudo python3 /home/{}/manage.py makemigrations".format(data['Project_name']), shell=True)
+        subprocess.call("sudo python3 {}/manage.py makemigrations".format(data['project_file']), shell=True)
 
 
-def migrate():
+def migrate(project_name):
     """Django --migrate"""
 
-    with open("/home/server.json") as migrate_file:
+    with open("/home/{}.json".format(project_name)) as migrate_file:
         data = json.load(migrate_file)
-        subprocess.call("sudo python3 /home/{}/manage.py migrate".format(data['Project_name']), shell=True)
+        subprocess.call("sudo python3 {}/manage.py migrate".format(data['project_file']), shell=True)
 
 
 def RunEasy():
@@ -158,14 +181,41 @@ def RunEasy():
             cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
             continue
 
+        cprint("Write your gunicorn file name", 'red', attrs=['bold'])
+        gunicorn_file = str(input('Gunicorn File name = '))
+        if gunicorn_file == "":
+            cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
+            continue
+
+        cprint("Write your nginx file name", 'red', attrs=['bold'])
+        nginx_file = str(input('Nginx File name = '))
+        if nginx_file == "":
+            cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
+            continue
+
+        cprint("Write your virtualenv file path", 'red', attrs=['bold'])
+        cprint("Example : /home/DjangoEnv", 'green', attrs=['bold'])
+        virtualenv_file = str(input('Virtualenv File path = '))
+        if nginx_file == "":
+            cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
+            continue
+
+        cprint("Write your Project file path", 'red', attrs=['bold'])
+        cprint("Example : /home/Blog", 'green', attrs=['bold'])
+        project_file = str(input('Project File path = '))
+        if nginx_file == "":
+            cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
+            continue
+
         else:
             break
 
-    easy = EasyInstall(project_name, server_name_or_ip, static_url)
+    easy = EasyInstall(project_name, server_name_or_ip, static_url, gunicorn_file,
+                       nginx_file, project_file, virtualenv_file)
     easy.__call__()
     easy.__add__()
     easy.__copy__()
-    easy.extra()
+    easy.requirements()
     easy.save()
 
     # Restarting.
@@ -177,26 +227,32 @@ def main():
     """Working area"""
 
     message = """
-Options:
-  --create                 A new site
-  --collectstatic          static file
-  --makemigrations         database makemigrations
-  --migrate                database migrate
-"""
 
-    if (len(sys.argv)) > 1:
+    Options:
+
+    --create                              A new site
+    project_name --collectstatic          static file
+    project_name --makemigrations         database makemigrations
+    project_name --migrate                database migrate
+
+    """
+
+    if (len(sys.argv)) > 2:
 
         if sys.argv[1] == "--create":
             RunEasy()
 
-        elif sys.argv[1] == "--collectstatic":
-            collectstatic()
+        elif str(sys.argv[2]).split('') == "--collectstatic":
 
-        elif sys.argv[1] == "--makemigrations":
-            makemigrations()
+            collectstatic(sys.argv[1])
 
-        elif sys.argv[1] == "--migrate":
-            migrate()
+        elif str(sys.argv[2]).split('') == "--makemigrations":
+
+            makemigrations(sys.argv[1])
+
+        elif str(sys.argv[2]).split('') == "--migrate":
+
+            migrate(sys.argv[1])
 
         else:
             print("Command not found\n",message)
@@ -207,3 +263,5 @@ Options:
 
 if __name__ == '__main__':
     main()
+
+command_template = '/bin/bash -c "source /home/blog/bin/activate" '
