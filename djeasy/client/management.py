@@ -226,39 +226,39 @@ def RunEasy():
 def main():
     """Working area"""
 
-    message = """
+message = """
 
-    Options:
+Options:
 
-    --create                              A new site
-    project_name --collectstatic          static file
-    project_name --makemigrations         database makemigrations
-    project_name --migrate                database migrate
+--create                              A new site
+project_name --collectstatic          static file
+project_name --makemigrations         database makemigrations
+project_name --migrate                database migrate
 
-    """
+"""
 
-    if (len(sys.argv)) > 2:
+if (len(sys.argv)) >= 1:
 
-        if sys.argv[1] == "--create":
-            RunEasy()
+    if sys.argv[1] == "--create":
+        RunEasy()
 
-        elif str(sys.argv[2]) == "--collectstatic":
+    elif str(sys.argv[2]) == "--collectstatic":
 
-            collectstatic(sys.argv[1])
+        collectstatic(sys.argv[1])
 
-        elif str(sys.argv[2]) == "--makemigrations":
+    elif str(sys.argv[2]) == "--makemigrations":
 
-            makemigrations(sys.argv[1])
+        makemigrations(sys.argv[1])
 
-        elif str(sys.argv[2]) == "--migrate":
+    elif str(sys.argv[2]) == "--migrate":
 
-            migrate(sys.argv[1])
-
-        else:
-            print("Command not found\n",message)
+        migrate(sys.argv[1])
 
     else:
-        print(message)
+        print("Command not found\n",message)
+
+else:
+    print(message)
 
 
 if __name__ == '__main__':
