@@ -159,7 +159,7 @@ def collectstatic(project_name):
 
     with open("/home/{}.json".format(project_name)) as collect_file:
         data = json.load(collect_file)
-        subprocess.call("python3 {}/manage.py collectstatic".format(data['project_file']), shell=True)
+        subprocess.call("python3 {}/manage.py collectstatic".format(data['project_name']), shell=True)
 
 
 def makemigrations(project_name):
@@ -167,7 +167,7 @@ def makemigrations(project_name):
 
     with open("/home/{}.json".format(project_name)) as makemigrations_file:
         data = json.load(makemigrations_file)
-        subprocess.call("sudo python3 {}/manage.py makemigrations".format(data['project_file']), shell=True)
+        subprocess.call("sudo python3 {}/manage.py makemigrations".format(data['project_name']), shell=True)
 
 
 def migrate(project_name):
@@ -175,7 +175,7 @@ def migrate(project_name):
 
     with open("/home/{}.json".format(project_name)) as migrate_file:
         data = json.load(migrate_file)
-        subprocess.call("sudo python3 {}/manage.py migrate".format(data['project_file']), shell=True)
+        subprocess.call("sudo python3 {}/manage.py migrate".format(data['project_name']), shell=True)
 
 def nginx_restart():
     """Nginx Restart"""
@@ -188,7 +188,8 @@ def gunicorn_restart(project_name):
 
     with open("/home/{}.json".format(project_name)) as gunicorn_file:
         data = json.load(gunicorn_file)
-        subprocess.call("sudo systemctl restart {}".format(data['gunicorn_file']), shell=True)
+
+        subprocess.call("sudo systemctl restart {}".format(data['project_name']), shell=True)
 
     cprint("Gunicorn has been successfully restarted.", 'green', attrs=['bold'])
 
@@ -265,12 +266,12 @@ message = """
 
 Options:
 
-    --create                              Create a new site.
-    project_name --collectstatic          Static files
-    project_name --makemigrations         Database makemigrations
-    project_name --migrate                Database migrate
-    project_name --nginx_restart          Nginx restart
-    project_name --gunicorn_restart       Gunicorn restart
+--create                            Create a new site.
+project_name --collectstatic        Static files
+project_name --makemigrations       Database makemigrations
+project_name --migrate              Database migrate
+--nginx                             Nginx restart
+project_name --gunicorn             Gunicorn restart
 
 """
 
@@ -291,11 +292,11 @@ if (len(sys.argv)) > 1:
 
         migrate(sys.argv[1])
 
-    elif str(sys.argv[2]) == "--nginx_restart":
+    elif str(sys.argv[2]) == "--nginx":
 
         nginx_restart()
 
-    elif str(sys.argv[2]) == "--gunicorn_restart":
+    elif str(sys.argv[2]) == "--gunicorn":
 
         gunicorn_restart(sys.argv[1])
 
