@@ -268,7 +268,6 @@ def main():
     """Working area"""
 
 message = """
-
 Options:
 
     --create                            Create a new site.
