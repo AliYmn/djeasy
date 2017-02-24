@@ -266,12 +266,12 @@ message = """
 
 Options:
 
---create                            Create a new site.
-project_name --collectstatic        Static files
-project_name --makemigrations       Database makemigrations
-project_name --migrate              Database migrate
---nginx                             Nginx restart
-project_name --gunicorn             Gunicorn restart
+    --create                            Create a new site.
+    project_name --collectstatic        Static files
+    project_name --makemigrations       Database makemigrations
+    project_name --migrate              Database migrate
+    project_name --gunicorn             Gunicorn restart
+    --nginx                             Nginx restart
 
 """
 
@@ -280,30 +280,28 @@ if (len(sys.argv)) > 1:
     if str(sys.argv[1]) == "--create":
         RunEasy()
 
-    elif str(sys.argv[2]) == "--nginx":
+    elif str(sys.argv[1]) == "--nginx":
         nginx_restart()
-
-        if(len(sys.argv)) > 2:
-
-            if str(sys.argv[2]) == "--collectstatic":
-                collectstatic(sys.argv[1])
-
-            elif str(sys.argv[2]) == "--makemigrations":
-                makemigrations(sys.argv[1])
-
-            elif str(sys.argv[2]) == "--migrate":
-                migrate(sys.argv[1])
-
-            elif str(sys.argv[2]) == "--gunicorn":
-                gunicorn_restart(sys.argv[1])
-
-            else:
-                print("Command not found\n",message)
-        else:
-            print("Command not found\n", message)
-
 else:
-    print(message)
+    if(len(sys.argv)) > 2:
+
+        if str(sys.argv[2]) == "--collectstatic":
+            collectstatic(sys.argv[1])
+
+        elif str(sys.argv[2]) == "--makemigrations":
+            makemigrations(sys.argv[1])
+
+        elif str(sys.argv[2]) == "--migrate":
+            migrate(sys.argv[1])
+
+        elif str(sys.argv[2]) == "--gunicorn":
+            gunicorn_restart(sys.argv[1])
+
+        else:
+            print("Command not found\n",message)
+
+    else:
+        print(message)
 
 
 if __name__ == '__main__':
