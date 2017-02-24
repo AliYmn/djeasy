@@ -121,7 +121,7 @@ class EasyInstall:
         """requirements.txt install"""
 
         subprocess.call('{}/bin/pip install -r {}/requirements.txt'.format(self.virtualenv_file,self.project_file),shell=True)
-        subprocess.call('{}/bin/pip install install gunicorn')
+        subprocess.call('{}/bin/pip install gunicorn')
         cprint("requirements.txt successfully loaded.!", 'green', attrs=['bold'])
 
     def save(self):
