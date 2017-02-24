@@ -95,7 +95,7 @@ class EasyInstall:
                         format(BASE_DIR, self.nginx_file), shell=True)
 
         subprocess.call("sudo ln -s /etc/nginx/sites-available/{} /etc/nginx/sites-enabled".
-                        format(BASE_DIR, self.nginx_file), shell=True)
+                        format(self.nginx_file), shell=True)
 
     def __copy__(self):
         """Gunicorn and nginx setting files"""
@@ -117,7 +117,9 @@ class EasyInstall:
     def requirements(self):
         """requirements.txt install"""
 
-        subprocess.Popen(['{}/bin/pip3'.format(self.virtualenv_file), 'install', 'djeasy'])
+        subprocess.Popen(['{}/bin/pip3'.format(self.virtualenv_file), '-r', '{}/{}/requirements.txt'.
+                                                                      format(BASE_DIR,self.project_file)])
+
         cprint("requirements.txt successfully loaded.!", 'green', attrs=['bold'])
 
     def save(self):
@@ -137,7 +139,7 @@ class EasyInstall:
         cprint("/home/{}.json file created...".format(self.project_name), 'green', attrs=['bold'])
         cprint("All successful!", 'green', attrs=['bold'])
 
-        subprocess.call('sudo chmod -R 777 /home/server.json', shell=True)
+        subprocess.call('sudo chmod -R 777 /home/{}.json'.format(self.project_name), shell=True)
 
 def collectstatic(project_name):
     """Django --collectstatic"""
