@@ -173,56 +173,68 @@ def gunicorn_restart(project_name):
 
 def RunEasy():
     """It receives information from the user."""
-    import re
+    import os
 
     while True:
-        cprint("Please type in the server ip or domain address.)", 'red', attrs=['bold'])
+        cprint("Please type in the server ip or domain address.", 'red', attrs=['bold'])
         server_name_or_ip = str(input('server ip or domain = '))
 
         if server_name_or_ip == "":
             cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
             continue
-        else:
-            if(domain(server_name_or_ip) or ipv4(server_name_or_ip)):
-                cprint("Please enter a valid address...)", 'red', attrs=['bold'])
-                continue
+
+        if(domain(server_name_or_ip) or ipv4(server_name_or_ip)):
+            cprint("Please enter a valid address...", 'red', attrs=['bold'])
+            continue
 
         cprint("Write your STATIC_URL (Django Settings.py)", 'red', attrs=['bold'])
         static_url = str(input('STATIC_URL = '))
         if static_url == "":
-            cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
+            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
             continue
 
         cprint("Write your project name", 'red', attrs=['bold'])
         project_name = str(input('Project name = '))
         if project_name == "":
-            cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
+            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
             continue
 
         cprint("Write your gunicorn file name", 'red', attrs=['bold'])
         gunicorn_file = str(input('Gunicorn File name = '))
+
         if gunicorn_file == "":
-            cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
+            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
             continue
 
         cprint("Write your nginx file name", 'red', attrs=['bold'])
         nginx_file = str(input('Nginx File name = '))
         if nginx_file == "":
-            cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
+            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
             continue
 
         cprint("Write your virtualenv file path", 'red', attrs=['bold'])
         cprint("Example : /home/DjangoEnv", 'green', attrs=['bold'])
         virtualenv_file = str(input('Virtualenv File path = '))
-        if nginx_file == "":
-            cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
+
+        if virtualenv_file == "":
+            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
             continue
+
+        if(os.path.isdir(virtualenv_file)):
+            cprint("No such file or directory", 'red', attrs=['bold'])
+            continue
+
 
         cprint("Write your Project file path", 'red', attrs=['bold'])
         cprint("Example : /home/Blog", 'green', attrs=['bold'])
         project_file = str(input('Project File path = '))
-        if nginx_file == "":
-            cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
+
+        if project_file == "":
+            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
+            continue
+
+        if(os.path.isdir(project_file)):
+            cprint("No such file or directory", 'red', attrs=['bold'])
             continue
 
         else:
