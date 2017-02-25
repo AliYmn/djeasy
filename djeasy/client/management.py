@@ -181,10 +181,12 @@ def RunEasy():
         server_name_or_ip = str(input('server ip or domain = '))
 
         if server_name_or_ip == "":
-            cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
+            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
+            continue
         else:
-
             if(domain(server_name_or_ip) or ipv4(server_name_or_ip)):
+                pass
+            else:
                 cprint("Please enter a valid address...", 'red', attrs=['bold'])
                 continue
 
@@ -224,9 +226,12 @@ def RunEasy():
             cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
             continue
 
-        if(os.path.isdir(virtualenv_file)):
-            cprint("No such file or directory", 'red', attrs=['bold'])
-            continue
+        else:
+            if(os.path.isdir(virtualenv_file)):
+                pass
+            else:
+                cprint("No such file or directory", 'red', attrs=['bold'])
+                continue
 
 
         cprint("Write your Project file path", 'red', attrs=['bold'])
@@ -237,9 +242,12 @@ def RunEasy():
             cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
             continue
 
-        if(os.path.isdir(project_file)):
-            cprint("No such file or directory", 'red', attrs=['bold'])
-            continue
+        else:
+            if(os.path.isdir(project_file)):
+                pass
+            else:
+                cprint("No such file or directory", 'red', attrs=['bold'])
+                continue
 
         else:
             break
@@ -266,7 +274,7 @@ Options:
 
     --create                            Create a new site.
     --nginx                             Nginx restart
-    project_name --gunicorn             Gunicorn restart
+    Project_name --gunicorn             Gunicorn restart
 
 """
 
