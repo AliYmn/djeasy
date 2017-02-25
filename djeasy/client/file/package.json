@@ -6,7 +6,7 @@
         },
 
         {
-            "name": "sudo apt-get install python-dev python3-dev libpq-dev postgresql postgresql-contrib nginx",
+            "name": "sudo apt-get install python-dev python3-dev libpq-dev nginx",
             "message": "The necessary packages are being installed."
         }
 
