@@ -171,6 +171,7 @@ def gunicorn_restart(project_name):
     cprint("Gunicorn has been successfully restarted.", 'green', attrs=['bold'])
 
 
+
 def RunEasy():
     """It receives information from the user."""
     import os
@@ -183,18 +184,21 @@ def RunEasy():
             cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
             continue
 
-        if(domain(server_name_or_ip) or ipv4(server_name_or_ip)):
-            cprint("Please enter a valid address...", 'red', attrs=['bold'])
-            continue
+        else:
+            if(domain(server_name_or_ip) or ipv4(server_name_or_ip)):
+                cprint("Please enter a valid address...", 'red', attrs=['bold'])
+                continue
 
         cprint("Write your STATIC_URL (Django Settings.py)", 'red', attrs=['bold'])
         static_url = str(input('STATIC_URL = '))
+
         if static_url == "":
             cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
             continue
 
         cprint("Write your project name", 'red', attrs=['bold'])
         project_name = str(input('Project name = '))
+
         if project_name == "":
             cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
             continue
@@ -208,6 +212,7 @@ def RunEasy():
 
         cprint("Write your nginx file name", 'red', attrs=['bold'])
         nginx_file = str(input('Nginx File name = '))
+
         if nginx_file == "":
             cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
             continue
