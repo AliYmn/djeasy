@@ -102,6 +102,18 @@ Example;
     
 Output;
 
+<img src="http://image.prntscr.com/image/3ef690aebe3a478582bf9c50e6999f0d.png"/>
+
+# Process completed successfully.
+
+<img src="http://image.prntscr.com/image/e4e221f9cb3443a9b033db912c6a2814.png"/>
+
+NOT : The Json file is saved in the home directory, please do not delete it.
+
+
+
+
+
 
     
     
