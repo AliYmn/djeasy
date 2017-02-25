@@ -12,7 +12,7 @@ setup(
     url='https://github.com/AliYmn/djeasy',
     download_url='https://github.com/AliYmn/djeasy',
     install_requires=[
-        'termcolor',
+        'termcolor','validators',
     ],
     include_package_data=True,
     zip_safe=False,

@@ -4,7 +4,7 @@ from termcolor import cprint
 import os
 import sys
 import platform
-
+from validators import domain,ipv4
 """
 Djeasy : Django simple quick setup
 """
@@ -179,17 +179,11 @@ def RunEasy():
         cprint("Please type in the server ip or domain address.)", 'red', attrs=['bold'])
         server_name_or_ip = str(input('server ip or domain = '))
 
-        domain_valid = re.match("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2"
-                                "[0-4][0-9]|25[0-5])$",server_name_or_ip)
-
-        ip_valid = re.match("^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za"
-                            "-z0-9])$", server_name_or_ip)
-
         if server_name_or_ip == "":
             cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
             continue
         else:
-            if(domain_valid or ip_valid):
+            if(domain(server_name_or_ip) or ipv4(server_name_or_ip)):
                 cprint("Please enter a valid address...)", 'red', attrs=['bold'])
                 continue
 
