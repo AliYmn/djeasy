@@ -244,13 +244,10 @@ def RunEasy():
 
         else:
             if(os.path.isdir(project_file)):
-                pass
+                break
             else:
                 cprint("No such file or directory", 'red', attrs=['bold'])
                 continue
-
-        else:
-            break
 
     easy = EasyInstall(project_name, server_name_or_ip, static_url, gunicorn_file,
                        nginx_file, project_file, virtualenv_file)
