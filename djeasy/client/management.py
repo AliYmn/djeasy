@@ -56,7 +56,7 @@ class EasyInstall:
         """Packages Loader"""
 
         for package in self.data['package']:
-            cprint("{}".format(package['message']), 'green', attrs=['bold'])
+            cprint("{}".format(package['message']), 'white', 'on_red', attrs=['bold'])
             subprocess.call(package['name'], shell=True)
 
         # Restart.
@@ -64,7 +64,7 @@ class EasyInstall:
         subprocess.call("sudo systemctl restart nginx", shell=True)
 
         # Successfull package
-        cprint("The packages have been successfully installed.", 'green', attrs=['bold'])
+        cprint("The packages have been successfully installed.", 'white', 'on_red', attrs=['bold'])
 
     def __add__(self):
         """It records Gunicorn vs nginx files."""
@@ -77,7 +77,7 @@ class EasyInstall:
             file_gunicorn.flush()
             file_gunicorn.close()
 
-        cprint("{}.service file created.".format(self.gunicorn_file), 'green', attrs=['bold'])
+        cprint("{}.service file created.".format(self.gunicorn_file), 'white', 'on_red', attrs=['bold'])
 
         # File move operations
         subprocess.call("sudo cp {}/package/{}.service /etc/systemd/system/".
@@ -85,7 +85,7 @@ class EasyInstall:
 
         # Gunicorn recording and restart
         subprocess.call("sudo systemctl start {0} & sudo systemctl enable {0}".format(self.gunicorn_file), shell=True)
-        cprint("Gunicorn was registered and restarted.", 'green', attrs=['bold'])
+        cprint("Gunicorn was registered and restarted.", 'white', 'on_red', attrs=['bold'])
 
         # nginx file save and move
         with open("{}/client/file/nginx".format(BASE_DIR)) as nginx_files:
@@ -99,7 +99,7 @@ class EasyInstall:
             file_nignx.flush()
             file_nignx.close()
 
-        cprint("{} file created.".format(self.nginx_file), 'green', attrs=['bold'])
+        cprint("{} file created.".format(self.nginx_file), 'white', 'on_red', attrs=['bold'])
 
         # File move operations
         subprocess.call("sudo cp {}/package/{} /etc/nginx/sites-available/".
@@ -114,17 +114,17 @@ class EasyInstall:
 
         # Gunicorn
         for gunicorn_package in self.data['gunicorn']:
-            cprint(gunicorn_package['message'], 'green', attrs=['bold'])
+            cprint(gunicorn_package['message'], 'white', 'on_red', attrs=['bold'])
             subprocess.call(gunicorn_package['name'], shell=True)
 
-        cprint("Gunicorn successful!", 'green', attrs=['bold'])
+        cprint("Gunicorn successful!", 'white', 'on_red', attrs=['bold'])
 
         # Nginx
         for nginx_package in self.data['nginx']:
-            cprint(nginx_package['message'], 'green', attrs=['bold'])
+            cprint(nginx_package['message'], 'white', 'on_red', attrs=['bold'])
             subprocess.call(nginx_package['name'], shell=True)
 
-        cprint("Nginx successful!", 'green', attrs=['bold'])
+        cprint("Nginx successful!", 'white', 'on_red', attrs=['bold'])
 
     def requirements(self):
         """requirements.txt install"""
@@ -133,7 +133,7 @@ class EasyInstall:
                                                                            self.project_file),shell=True)
 
         subprocess.call('{}/bin/pip3 install gunicorn'.format(self.virtualenv_file),shell=True)
-        cprint("requirements.txt successfully loaded.!", 'green', attrs=['bold'])
+        cprint("requirements.txt successfully loaded.!", 'white', 'on_red', attrs=['bold'])
 
     def save(self):
         """Records information."""
@@ -149,8 +149,8 @@ class EasyInstall:
             file.flush()
             file.close()
 
-        cprint("/home/{}.json file created...".format(self.project_name), 'green', attrs=['bold'])
-        cprint("All successful!", 'green', attrs=['bold'])
+        cprint("/home/{}.json file created...".format(self.project_name), 'white', 'on_red', attrs=['bold'])
+        cprint("All successful!", 'white', 'on_red', attrs=['bold'])
 
         subprocess.call('sudo chmod -R 777 /home/{}.json'.format(self.project_name), shell=True)
 
@@ -158,7 +158,7 @@ def nginx_restart():
     """Nginx Restart"""
     subprocess.call("sudo service nginx restart", shell=True)
     subprocess.call("sudo systemctl restart nginx", shell=True)
-    cprint("Nginx has been successfully restarted.", 'green', attrs=['bold'])
+    cprint("Nginx has been successfully restarted.", 'white', 'on_red', attrs=['bold'])
 
 def gunicorn_restart(project_name):
     """Gunicorn Restart"""
@@ -168,86 +168,95 @@ def gunicorn_restart(project_name):
 
         subprocess.call("sudo systemctl restart {}".format(data['project_name']), shell=True)
 
-    cprint("Gunicorn has been successfully restarted.", 'green', attrs=['bold'])
+    cprint("Gunicorn has been successfully restarted.", 'white', 'on_red', attrs=['bold'])
 
 
 
 def RunEasy():
     """It receives information from the user."""
-    import os
 
+    # server_ip_or_domain
     while True:
-        cprint("Please type in the server ip or domain address.", 'red', attrs=['bold'])
+        cprint("Please type in the server ip or domain address.", 'white', 'on_red', attrs=['bold'])
         server_name_or_ip = str(input('server ip or domain = '))
 
         if server_name_or_ip == "":
-            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
+            cprint("Please do not leave blank, try again...", 'white', 'on_red', attrs=['bold'])
             continue
         else:
             if(domain(server_name_or_ip) or ipv4(server_name_or_ip)):
-                pass
+                break
             else:
-                cprint("Please enter a valid address...", 'red', attrs=['bold'])
+                cprint("Please enter a valid address...", 'white', 'on_red', attrs=['bold'])
                 continue
 
-        cprint("Write your STATIC_URL (Django Settings.py)", 'red', attrs=['bold'])
+    # Static Url
+    while True:
+        cprint("Write your STATIC_URL (Django Settings.py)", 'white', 'on_red', attrs=['bold'])
         static_url = str(input('STATIC_URL = '))
 
         if static_url == "":
-            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
+            cprint("Please do not leave blank, try again...", 'white', 'on_red', attrs=['bold'])
             continue
+        else:
+            break
 
-        cprint("Write your project name", 'red', attrs=['bold'])
-        project_name = str(input('Project name = '))
-
-        if project_name == "":
-            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
-            continue
-
-        cprint("Write your gunicorn file name", 'red', attrs=['bold'])
+    # guniorn file name
+    while True:
+        cprint("Write your gunicorn file name", 'white', 'on_red', attrs=['bold'])
         gunicorn_file = str(input('Gunicorn File name = '))
 
         if gunicorn_file == "":
-            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
+            cprint("Please do not leave blank, try again...", 'white', 'on_red', attrs=['bold'])
             continue
+        else:
+            break
 
-        cprint("Write your nginx file name", 'red', attrs=['bold'])
+    # nginx file
+    while True:
+        cprint("Write your nginx file name", 'white', 'on_red', attrs=['bold'])
         nginx_file = str(input('Nginx File name = '))
-
         if nginx_file == "":
-            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
+            cprint("Please do not leave blank, try again...", 'white', 'on_red', attrs=['bold'])
             continue
+        else:
+            cprint("Write your virtualenv file path", 'white', 'on_red', attrs=['bold'])
+            cprint("Example : /home/DjangoEnv", 'white', 'on_red', attrs=['bold'])
+            break
 
-        cprint("Write your virtualenv file path", 'red', attrs=['bold'])
-        cprint("Example : /home/DjangoEnv", 'green', attrs=['bold'])
+    # virtualenv file
+    while True:
         virtualenv_file = str(input('Virtualenv File path = '))
-
         if virtualenv_file == "":
-            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
+            cprint("Please do not leave blank, try again...", 'white', 'on_red', attrs=['bold'])
             continue
 
         else:
             if(os.path.isdir(virtualenv_file)):
-                pass
+               break
             else:
-                cprint("No such file or directory", 'red', attrs=['bold'])
+                cprint("No such file or directory", 'white', 'on_red', attrs=['bold'])
                 continue
 
-
-        cprint("Write your Project file path", 'red', attrs=['bold'])
-        cprint("Example : /home/Blog", 'green', attrs=['bold'])
+    # project file
+    while True:
+        cprint("Write your Project file path", 'white', 'on_red', attrs=['bold'])
+        cprint("Example : /home/Blog", 'white', 'on_red', attrs=['bold'])
         project_file = str(input('Project File path = '))
 
         if project_file == "":
-            cprint("Please do not leave blank, try again...", 'red', attrs=['bold'])
+            cprint("Please do not leave blank, try again...", 'white', 'on_red', attrs=['bold'])
             continue
 
         else:
             if(os.path.isdir(project_file)):
                 break
             else:
-                cprint("No such file or directory", 'red', attrs=['bold'])
+                cprint("No such file or directory", 'white', 'on_red', attrs=['bold'])
                 continue
+
+
+    project_name = str(project_file).split('/')[len(str(project_file).split('/'))-1]
 
     easy = EasyInstall(project_name, server_name_or_ip, static_url, gunicorn_file,
                        nginx_file, project_file, virtualenv_file)
