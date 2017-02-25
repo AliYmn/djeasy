@@ -9,6 +9,7 @@
 
     sudo apt-get install python-pip
     sudo apt-get install python3-pip
+    sudo apt-get install virtualenv
 
 # Package
 
@@ -23,7 +24,7 @@
 
 Example Project ;
 
-    DjangoProject  --> Move to the /home/ directory.
+    DjangoProject 
     ├── DjangoProject
     │   ├── __init__.py
     │   ├── settings.py
@@ -35,61 +36,53 @@ Example Project ;
     │    └── apps.py
     │    └── tests.py
     │    └── views.py
-    requirements.txt ---> Add!
+    requirements.txt ---> Add!!
 
 Example requirements.txt : https://goo.gl/0Y9yCB
 
-* Move the file named Django Project to **/home/** directory 
+* Do not forget to add the **requirements.txt**file.
 
 * Django Settings.py ALLOWED_HOSTS = []  server ip or domain add.
 
 # DjEasy
 
-We are starting now! :)
-
     djeasy
  
  Output :
 
-<img src="http://image.prntscr.com/image/c89f074de20b43f3a9532033ff844c27.png"/>
-
-    Options:
-      --create                 A new site
-      --collectstatic          static file
-      --makemigrations         database makemigrations
-      --migrate                database migrate
+    --create                      Create a new site.
+    --nginx                       Nginx restart
+    Project_name --gunicorn       Gunicorn restart
 
 
-# DjEasy Create Site
+# Site Publishing Steps
+
+* Creating a virtual environment.
+
+Follow the steps in turn.
+
+    cd /home/
+    virtualenv -p python3 DjangoEnv
+
+* Upload your app.
+
+We can create a copy of the project you wrote with Django.
+
+Example :
+
+    cd /home/
+    git clone https://github.com/AliYmn/aliyaman.org
+    mv aliyaman.org DjangoBlog
+
+* Let's run the package.
+
+We'll finish the process in four steps.
 
     djeasy --create
+ 
+ ***
+ 
+ <img src="http://i.hizliresim.com/nRG4GN.png"/>
 
-* Note :  Warning : Make sure you are entering the correct information.
-  
-Output :
-    
- <img src="http://image.prntscr.com/image/3f7c4755b4c145d8ab4e1b5cada271e4.png"/> 
- 
- -
- Is not it good?
- ---
- 
- * # Database
-  
- Example;
- 
-    djeasy --migrate
-    djeasy --makemigrations
- 
- Output :
- 
- <img src="http://image.prntscr.com/image/46cec782f37841f49c7fbe9fe9e953a3.png"/>
- 
-# Congratulations Successful!
+   
 
-<img src="http://image.prntscr.com/image/fe6e3dd4bb2c4454a3f202d5f2b8fda9.png"/>
-
-# Create the PostgreSQL Database and User
-
- https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-16-04#create-the-postgresql-database-and-user
-    
