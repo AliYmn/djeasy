@@ -166,7 +166,7 @@ def gunicorn_restart(project_name):
     with open("/home/{}.json".format(project_name)) as gunicorn_file:
         data = json.load(gunicorn_file)
 
-        subprocess.call("sudo systemctl restart {}".format(data['project_name']), shell=True)
+        subprocess.call("sudo systemctl restart {}".format(data['gunicorn_file']), shell=True)
 
     cprint("Gunicorn has been successfully restarted.", 'white', 'on_red', attrs=['bold'])
 

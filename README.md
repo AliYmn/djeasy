@@ -19,13 +19,10 @@
 
 # Configuration
 
-* Do not forget to add the Requirements.txt file.
-
-
 Example Project ;
 
-    DjangoProject 
-    ├── DjangoProject
+    DjangoBlog 
+    ├── DjangoBlog
     │   ├── __init__.py
     │   ├── settings.py
     │   └── urls.py
@@ -40,9 +37,9 @@ Example Project ;
 
 Example requirements.txt : https://goo.gl/0Y9yCB
 
-* Do not forget to add the **requirements.txt**file.
+* Do not forget to add the **requirements.txt** file.
 
-* Django Settings.py ALLOWED_HOSTS = []  server ip or domain add.
+* Django Settings.py **ALLOWED_HOSTS = []**  server ip or domain add.
 
 # DjEasy
 
@@ -84,5 +81,28 @@ We'll finish the process in four steps.
  
  <img src="http://i.hizliresim.com/nRG4GN.png"/>
 
-   
+NOT : When entering multiple site addresses, leave a space.
+
+Example;
+
+    server ip or domain = 192.241.163.191 example.com blog.example.com
+***
+
+* Restart the server
+
+Commands used ;
+
+    --nginx                       Nginx restart
+    Project_name --gunicorn       Gunicorn restart
+    
+Example;
+
+    djeasy --nginx
+    djeasy DjangoBlog --gunicorn
+    
+Output;
+
+
+    
+    
 
