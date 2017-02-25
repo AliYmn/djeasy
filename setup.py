@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="djeasy",
-    version="1.8.0",
+    version="1.9.0",
     author="Ali Yaman",
     author_email="aliymn.db@gmail.com",
     description="Django Easy Engine",
