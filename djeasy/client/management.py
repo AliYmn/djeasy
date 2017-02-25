@@ -182,9 +182,8 @@ def RunEasy():
 
         if server_name_or_ip == "":
             cprint("Please do not leave blank, try again...)", 'red', attrs=['bold'])
-            continue
-
         else:
+
             if(domain(server_name_or_ip) or ipv4(server_name_or_ip)):
                 cprint("Please enter a valid address...", 'red', attrs=['bold'])
                 continue
