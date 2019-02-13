@@ -79,7 +79,7 @@ We'll finish the process in four steps.
  
  ***
  
- <img src="http://i.hizliresim.com/nRG4GN.png"/>
+ <img src="https://i3.wp.com/www.python.tc/wp-content/uploads/2017/02/djeasy-django-site-kurma.png"/>
 
 NOT : When entering multiple site addresses, leave a space.
 
