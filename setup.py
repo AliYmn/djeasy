@@ -1,8 +1,13 @@
 from setuptools import setup
-import io
+import os
+import sys
 
-with io.open("README.md", 'r', encoding='utf8') as readme_file:
-    README = readme_file.read()
+if sys.version_info[0] < 3:
+    with open('README.md') as f:
+        README = f.read()
+else:
+    with open('README.md', encoding='utf-8') as f:
+        README = f.read()
 
 setup(
     name="djeasy",
