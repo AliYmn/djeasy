@@ -1,18 +1,23 @@
 from setuptools import setup
 
+with open('README.md') as readme_file:
+    README = readme_file.read()
+
 setup(
     name="djeasy",
-    version="2.0.0",
+    version="2.0.1",
     author="Ali Yaman",
     author_email="aliymn.db@gmail.com",
-    description="Django Easy Engine",
+    description="Django Deploy on Server",
     license="MIT",
-    keywords="django install server",
-    packages=['djeasy','djeasy/client','djeasy/package'],
+    long_description_content_type="text/markdown",
+    long_description=README,
+    keywords="django deploy on server",
+    packages=['djeasy', 'djeasy/client', 'djeasy/package'],
     url='https://github.com/AliYmn/djeasy',
     download_url='https://github.com/AliYmn/djeasy',
     install_requires=[
-        'termcolor','validators',
+        'termcolor', 'validators',
     ],
     include_package_data=True,
     zip_safe=False,

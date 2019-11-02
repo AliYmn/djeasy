@@ -1,11 +1,14 @@
 # Compatibility
 
 * Django 1.8+
-* Python 3.x + 
-* Distribution : Debian Derivatives
+* Python 3.x +
+* Python 2.x +
+* Support OS : Ubuntu (Debian Derivatives) 
+* Centos (not yet)
+
+You should check this package.
 
 # **Installations**
-
 
     sudo apt-get install python-pip
     sudo apt-get install python3-pip
@@ -13,13 +16,17 @@
 
 # Package
 
+    pip install djeasy 
+    #or
     pip3 install djeasy
 
 
 
 # Configuration
+This is important this project. Because your project doesn't match this directory doesn't work.
+* You must add <b>requirements.txt</b>
 
-Example Project ;
+# Example Project ;
 
     DjangoBlog 
     ├── DjangoBlog
@@ -49,27 +56,26 @@ Example requirements.txt : https://goo.gl/0Y9yCB
 
     --create                      Create a new site.
     --nginx                       Nginx restart
-    Project_name --gunicorn       Gunicorn restart
-
 
 # Site Publishing Steps
 
-* Creating a virtual environment.
+* You must create virtualenv for your project and this package.
+* NOT : You should know virtualenv name to use djeasy.
 
-Follow the steps in turn.
+You can follow this;
 
-    cd /home/
-    virtualenv -p python3 DjangoEnv
+    cd /home/ # as you wish. My recommended in your /home/ directory.
+    
+    virtualenv -p python3 DjangoEnv # example name : DjangoEnv
 
-* Upload your app.
+* Upload or clone your project in server directory like /home/
 
-We can create a copy of the project you wrote with Django.
 
 Example :
 
     cd /home/
     git clone https://github.com/AliYmn/aliyaman.org
-    mv aliyaman.org DjangoBlog
+    mv aliyaman.org DjangoBlog # to change name
 
 * Let's run the package.
 
@@ -78,10 +84,12 @@ We'll finish the process in four steps.
     djeasy --create
  
  ***
+
+* You can give any name you want for nginx and gunicorn name. But you should don't keep in mind names, because you'll use this for restart nginx and gunicorn.
  
  <img src="https://i3.wp.com/www.python.tc/wp-content/uploads/2017/02/djeasy-django-site-kurma.png"/>
 
-NOT : When entering multiple site addresses, leave a space.
+NOT : You can write multiple site. For example, example1.com example2.com 
 
 Example;
 
@@ -92,8 +100,8 @@ Example;
 
 Commands used ;
 
-    --nginx                       Nginx restart
-    Project_name --gunicorn       Gunicorn restart
+    --nginx                        Nginx restart
+    gunicorn_name --gunicorn       Gunicorn restart
     
 Example;
 
