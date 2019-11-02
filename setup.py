@@ -1,6 +1,7 @@
 from setuptools import setup
+import io
 
-with open('README.md') as readme_file:
+with io.open("README.md", 'r', encoding='utf8') as readme_file:
     README = readme_file.read()
 
 setup(
@@ -36,8 +37,6 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     entry_points={
-        'console_scripts': [
-            'djeasy = djeasy.client.management:main',
-        ]
+        'console_scripts': ['djeasy=djeasy.client.management:main']
     }
 )
