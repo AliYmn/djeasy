@@ -87,7 +87,7 @@ We'll finish the process in four steps.
 
 * You can give any name you want for nginx and gunicorn name. But you should don't keep in mind names, because you'll use this for restart nginx and gunicorn.
 
- <img src="images/ex3.png"/>
+ <img src="https://github.com/AliYmn/djeasy/raw/master/images/ex3.png"/>
 
 NOT : You can write multiple site. For example, example1.com example2.com
 
@@ -110,10 +110,10 @@ Example;
 
 Output;
 
- <img src="images/ex2.png"/>
+ <img src="https://github.com/AliYmn/djeasy/raw/master/images/ex2.png"/>
 
 # Process completed successfully.
 
- <img src="images/ex1.png"/>
+ <img src="https://github.com/AliYmn/djeasy/raw/master/images/ex1.png"/>
 
 NOT : The Json file is saved in the home directory, please do not delete it.
