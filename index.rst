@@ -3,7 +3,7 @@
 * Django 1.8+
 * Python 3.x +
 * Python 2.x +
-* Support OS : Ubuntu (Debian Derivatives) 
+* Support OS : Ubuntu (Debian Derivatives)
 * Centos (not yet)
 
 You should check this package.
@@ -16,7 +16,7 @@ You should check this package.
 
 # Package
 
-    pip install djeasy 
+    pip install djeasy
     #or
     pip3 install djeasy
 
@@ -28,7 +28,7 @@ This is important this project. Because your project doesn't match this director
 
 # Example Project ;
 
-    DjangoBlog 
+    DjangoBlog
     ├── DjangoBlog
     │   ├── __init__.py
     │   ├── settings.py
@@ -51,7 +51,7 @@ Example requirements.txt : https://goo.gl/0Y9yCB
 # DjEasy
 
     djeasy
- 
+
  Output :
 
     --create                      Create a new site.
@@ -65,7 +65,7 @@ Example requirements.txt : https://goo.gl/0Y9yCB
 You can follow this;
 
     cd /home/ # as you wish. My recommended in your /home/ directory.
-    
+
     virtualenv -p python3 DjangoEnv # example name : DjangoEnv
 
 * Upload or clone your project in server directory like /home/
@@ -82,14 +82,14 @@ Example :
 We'll finish the process in four steps.
 
     djeasy --create
- 
+
  ***
 
 * You can give any name you want for nginx and gunicorn name. But you should don't keep in mind names, because you'll use this for restart nginx and gunicorn.
- 
+
  <img src="https://i3.wp.com/www.python.tc/wp-content/uploads/2017/02/djeasy-django-site-kurma.png"/>
 
-NOT : You can write multiple site. For example, example1.com example2.com 
+NOT : You can write multiple site. For example, example1.com example2.com
 
 Example;
 
@@ -102,12 +102,12 @@ Commands used ;
 
     --nginx                        Nginx restart
     gunicorn_name --gunicorn       Gunicorn restart
-    
+
 Example;
 
     djeasy --nginx
     djeasy DjangoBlog --gunicorn
-    
+
 Output;
 
 <img src="http://image.prntscr.com/image/3ef690aebe3a478582bf9c50e6999f0d.png"/>
@@ -117,12 +117,3 @@ Output;
 <img src="http://image.prntscr.com/image/e4e221f9cb3443a9b033db912c6a2814.png"/>
 
 NOT : The Json file is saved in the home directory, please do not delete it.
-
-
-
-
-
-
-    
-    
-

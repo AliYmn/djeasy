@@ -1,6 +1,6 @@
-from setuptools import setup
-import os
 import sys
+
+from setuptools import setup
 
 if sys.version_info[0] < 3:
     with open('README.md') as f:
@@ -11,7 +11,7 @@ else:
 
 setup(
     name="djeasy",
-    version="2.0.1",
+    version="2.0.2",
     author="Ali Yaman",
     author_email="aliymn.db@gmail.com",
     description="Django Deploy on Server",
@@ -23,7 +23,8 @@ setup(
     url='https://github.com/AliYmn/djeasy',
     download_url='https://github.com/AliYmn/djeasy',
     install_requires=[
-        'termcolor', 'validators',
+        'termcolor',
+        'validators',
     ],
     include_package_data=True,
     zip_safe=False,
@@ -40,8 +41,12 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
     ],
-    entry_points={
-        'console_scripts': ['djeasy=djeasy.client.management:main']
-    }
+    entry_points={'console_scripts': ['djeasy=djeasy.client.management:main']},
 )
