@@ -114,6 +114,6 @@ Output;
 
 # Process completed successfully.
 
- <img src="images/ex1.png"/>>
+ <img src="images/ex1.png"/>
 
 NOT : The Json file is saved in the home directory, please do not delete it.
