@@ -1,14 +1,23 @@
-# Compatibility
+# DjEasy 🎵
 
-* Django 1.8+
-* Python 3.x +
-* Python 2.x +
-* Support OS : Ubuntu (Debian Derivatives)
-* Centos (not yet)
+[![PyPI version](https://img.shields.io/pypi/v/djeasy.svg)](https://pypi.org/project/djeasy/)
+[![License](https://img.shields.io/pypi/l/djeasy.svg)](https://github.com/AliYmn/djeasy/blob/master/LICENSE)
+[![Downloads](https://pepy.tech/badge/djeasy)](https://pepy.tech/project/djeasy)
+[![Forks](https://img.shields.io/github/forks/AliYmn/djeasy.svg?style=social&label=Fork)](https://github.com/AliYmn/djeasy/fork)
+[![Stars](https://img.shields.io/github/stars/AliYmn/djeasy.svg?style=social&label=Star)](https://github.com/AliYmn/djeasy/stargazers)
+[![Contributors](https://img.shields.io/github/contributors/AliYmn/djeasy.svg)](https://github.com/AliYmn/djeasy/graphs/contributors)
 
-You should check this package.
+Welcome to DjEasy, your go-to tool for simplifying Django project deployments without docker etc.
 
-# **Installations**
+## Compatibility
+
+- **Django**: 1.8+
+- **Python**: 3.x +, 2.x +
+- **Supported OS**: Ubuntu (Debian Derivatives), CentOS (coming soon)
+
+## Installation 🛠️
+
+Ensure you have the following installed:
 
     sudo apt-get install python-pip
     sudo apt-get install python3-pip
@@ -19,8 +28,6 @@ You should check this package.
     pip install djeasy
     #or
     pip3 install djeasy
-
-
 
 # Configuration
 This is important this project. Because your project doesn't match this directory doesn't work.
